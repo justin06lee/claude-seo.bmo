@@ -23,6 +23,8 @@ jobs:
 
       - name: Check Python syntax
         run: |
+          python3 -m py_compile scripts/url_safety.py
+          python3 -m py_compile scripts/render_page.py
           python3 -m py_compile scripts/fetch_page.py
           python3 -m py_compile scripts/parse_html.py
           python3 -m py_compile scripts/analyze_visual.py
@@ -53,7 +55,7 @@ jobs:
           python3 -m py_compile scripts/drift_history.py
           python3 -m py_compile scripts/sync_flow.py
           python3 -m py_compile scripts/release_report.py
-          echo "All 30 scripts passed syntax check"
+          echo "All 32 scripts passed syntax check"
 
   test:
     name: Test suite (manifests + sync_flow)

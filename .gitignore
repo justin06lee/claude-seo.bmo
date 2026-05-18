@@ -55,12 +55,12 @@ node_modules/
 # README-referenced assets are whitelisted below. Note: we use screenshots/*
 # (not screenshots/) so the `!screenshots/foo` re-include rules work.
 screenshots/*
-!screenshots/cover-image.jpeg
 !screenshots/seo-command-demo.gif
 !screenshots/seo-audit-demo.gif
-!screenshots/architecture-v2.svg
-!screenshots/desktop-annotated-all-issues.png
-!screenshots/mobile-annotated-combined-fullpage.png
+
+# Brand kit reference renders (PNG snapshots of the SVG comparison page).
+# The SVGs themselves under assets/ ship; the PNGs are scratch references.
+branding/*.png
 
 # Temporary analysis files
 *-AUDIT-REPORT.md

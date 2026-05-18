@@ -1,4 +1,4 @@
-![Claude SEO plugin cover: SEO analysis skill for Claude Code](screenshots/cover-image.jpeg)
+![Claude SEO terminal banner: animated CRT command palette with /seo audit, /seo schema, /seo geo, system line showing 25 sub-skills, 271 tests, 8 MCP servers](assets/banner.svg)
 
 # Claude SEO: SEO Analysis Skill for Claude Code
 
@@ -120,6 +120,8 @@ claude
 
 ## Commands
 
+![Claude SEO sub-skill ecosystem: 25 modules grouped into 8 categories (audit, content, schema, technical, AI search, local + maps, commerce + intl, extensions) around the central orchestrator](assets/diagrams/03-sub-skill-map-B.svg)
+
 27 user-invokable commands across the orchestrator and 25 sub-skills. Full reference in [docs/COMMANDS.md](docs/COMMANDS.md).
 
 | Command | Description |
@@ -159,8 +161,6 @@ Claude SEO measures the current three Core Web Vitals: **LCP** (Largest Contentf
 
 E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) is evaluated against the Search Quality Rater Guidelines, last updated September 2025 with YMYL expanded to include political and social topics. Experience signals: original research, case studies, first-hand photos. Expertise: author credentials and topical depth. Authoritativeness: external citations and brand mentions. Trustworthiness, the most heavily weighted of the four: contact info, secure HTTPS, transparent corrections, date stamps. Before scoring sub-factors, Claude SEO applies Google's own Who / How / Why heuristic from the [helpful-content guide](https://developers.google.com/search/docs/fundamentals/creating-helpful-content). Generative AI content is fine if it meets Search Essentials; it crosses into spam when used to scale low-value pages, which `seo-content humanize` and `seo-content verify` are designed to detect.
 
-![Claude SEO desktop audit: 8 annotated issue categories across alt text, headings, CTAs, accessibility, and CWV](screenshots/desktop-annotated-all-issues.png)
-
 ### What Schema.org types does Claude SEO support?
 
 JSON-LD is the preferred format (Google's stated preference). Active types Claude SEO detects, validates, and generates: Organization, LocalBusiness, Article, BlogPosting, NewsArticle, Product, ProductGroup, Offer, Review, AggregateRating, BreadcrumbList, WebSite, WebPage, Person, ProfilePage, ContactPage, VideoObject, ImageObject, Event, JobPosting, Course, DiscussionForumPosting, Reservation, OrderAction, plus video and specialized types (BroadcastEvent, Clip, SeekToAction, SoftwareSourceCode). Restricted: FAQ (government and healthcare authority sites only since August 2023). Deprecated and never recommended: HowTo (rich results removed September 2023), SpecialAnnouncement (July 2025), ClaimReview, VehicleListing, EstimatedSalary, LearningVideo, CourseInfo carousel (all retired June 2025). Replacement guidance: [skills/seo-schema/references/deprecated-types-2024-2026.md](skills/seo-schema/references/deprecated-types-2024-2026.md).
@@ -168,8 +168,6 @@ JSON-LD is the preferred format (Google's stated preference). Active types Claud
 ### How does Claude SEO optimize for AI search?
 
 Aligned with [Google's AI Optimization Guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), which states that "AEO" and "GEO" are rebranded labels for SEO. AI Overviews and AI Mode are grounded in the same ranking systems as classic Search; pages must be indexed and eligible for snippet display to appear in any AI feature. Claude SEO scores passage citability (optimal 134-167 word self-contained answer blocks), question-based heading hierarchy, attribution density, structured data coverage, and entity presence across Wikipedia, Reddit, YouTube, and LinkedIn. The `seo-geo` skill includes evidence-based reframes of three popular myths: llms.txt is not currently a citation lever ([primary-source evidence](skills/seo-geo/references/llmstxt-evidence.md)), content chunking is not required, and AI-specific keyword rewriting is unnecessary because synonym understanding is sufficient.
-
-![Claude SEO mobile audit: annotated CTA, touch-target, small-text, and overflow issues across the full mobile fullpage](screenshots/mobile-annotated-combined-fullpage.png)
 
 ### Which Google SEO APIs does Claude SEO integrate with?
 
@@ -270,11 +268,15 @@ Other audit outputs follow the same shape: `FULL-AUDIT-REPORT.md` (umbrella audi
 
 ## Architecture
 
-![Claude SEO architecture: user command flows to the orchestrator which dispatches to 24 sub-skills in 7 categories, feeding 18 parallel agents that synthesize via the 10-principle framework into action plan, PDF report, and drift baseline](screenshots/architecture-v2.svg)
+![Claude SEO system architecture: /seo audit enters the orchestrator, fans out to 25 sub-skills and 6 parallel audit agents, converges through the scoring engine into a prioritized report](assets/diagrams/01-architecture-B.svg)
 
 The plugin follows the [Agent Skills standard](https://docs.claude.com/en/docs/claude-code/skills) with a 3-layer architecture (directive, orchestration, execution). Skills and agents are auto-discovered from `skills/seo-*/` and `agents/seo-*.md`. The orchestrator (`skills/seo/SKILL.md`) handles industry detection (SaaS, local, ecommerce, publisher, agency), parallel sub-agent dispatch up to 15 simultaneously, and synthesis through the [10-principle framework](#methodology) before emitting the action plan. Full architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
+![Claude SEO audit pipeline: linear flow from /seo audit input through site crawl, parallel agent dispatch, score collection, and report emission](assets/diagrams/02-pipeline-A.svg)
+
 ## Methodology
+
+![Claude SEO 10-principle thinking framework: radial wheel with PERCEIVE, ANALYZE, VALIDATE, ACT phases and 10 principles arranged by quadrant](assets/diagrams/04-framework-B.svg)
 
 Every audit walks 10 principles grouped into four phases. Each emitted recommendation carries four fields: the first-principle observation it rests on, its dependency relationship to other recommendations, a "how would we know this failed?" check, and a leading indicator to monitor.
 
@@ -299,6 +301,8 @@ v2.0.0 is the largest release in the plugin's history. Six build phases, all shi
 - **Phase F: Local, international, and privacy polish.** Google Business Profile deprecation linter (chat field, `.business.site` URLs, Q&A), DMA consent-mode-v2 click-through diagnostic, machine-translation QA flag per January 2025 QRG.
 
 Test coverage: 248 → 271 (a 5.4× increase over the v1.9.9 baseline). 83 SSRF and DNS-rebinding bypass tests close the full obfuscated-IPv4, FQDN-trailing-dot, and redirect-rebinding bypass classes. Full migration notes and breaking changes: [docs/MIGRATION-v1-to-v2.md](docs/MIGRATION-v1-to-v2.md).
+
+![Claude SEO roadmap: horizontal timeline from v1.7.0 Google APIs through v2.0.0 AI search and 10-principle framework (current) to v3.0.0 audit-as-code](assets/diagrams/05-roadmap-A.svg)
 
 ## Limitations
 

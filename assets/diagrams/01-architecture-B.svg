@@ -4,46 +4,38 @@
 <defs>
   <style type="text/css"><![CDATA[
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
-    .bg            { fill: #16130F; }
-    .bg-soft       { fill: #1A1612; }
-    .box           { fill: #1E1B16; stroke: #3A332C; stroke-width: 1; }
-    .box-focal     { fill: #232019; stroke: #4F7B6E; stroke-width: 1.4; }
-    .box-future    { fill: #1A1612; stroke: #2F2A24; stroke-width: 1; stroke-dasharray: 4 3; }
-    .box-soft      { fill: #1C1915; stroke: #2F2A24; stroke-width: 1; }
-    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
-    .label         { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 14px; font-weight: 600; }
-    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #8FA89E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
-    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6A8077; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #D8E5DE; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
-    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #8BC0A8; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-    .label-inter   { font-family: 'Inter', system-ui, sans-serif; fill: #F0EDE5; font-size: 14px; font-weight: 500; }
-    .conn          { stroke: #6A8077; stroke-width: 1; fill: none; }
-    .conn-soft     { stroke: #3A615A; stroke-width: 1; fill: none; }
-    .conn-dashed   { stroke: #3A615A; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
-    .accent-fill   { fill: #4F7B6E; }
-    .accent-bright { fill: #8BC0A8; }
-    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5F7770; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .bg            { fill: #1F1B16; }
+    .bg-soft       { fill: #1F1B16; }
+    .box           { fill: #26221C; stroke: #4A3D32; stroke-width: 1; }
+    .box-focal     { fill: #1F2D27; stroke: #D97757; stroke-width: 1.4; }
+    .box-future    { fill: #221E18; stroke: #3A312A; stroke-width: 1; stroke-dasharray: 4 3; }
+    .box-soft      { fill: #232019; stroke: #3A312A; stroke-width: 1; }
+    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+    .label         { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 14px; font-weight: 600; }
+    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #9C8B7E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6F5F54; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #E0D2C4; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
+    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #D97757; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .conn          { stroke: #6F5F54; stroke-width: 1; fill: none; }
+    .conn-soft     { stroke: #4A3D32; stroke-width: 1; fill: none; }
+    .conn-dashed   { stroke: #4A3D32; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+    .accent-fill   { fill: #D97757; }
+    .accent-bright { fill: #F5B095; }
+    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5A5750; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
   ]]></style>
   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6A8077"/>
-  </marker>
-  <marker id="arrow-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3A615A"/>
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6F5F54"/>
   </marker>
 </defs>
-<!-- Window outer border + bg -->
-<rect x="0.5" y="0.5" width="1599" height="747" rx="10" fill="#FFFFFF" stroke="#a89968" stroke-width="1"/>
+<rect x="0.5" y="0.5" width="1599" height="747" rx="10" fill="#2A2520" stroke="#3A312A" stroke-width="1"/>
 
-  <!-- OS window title bar -->
-  <path d="M 0 10 Q 0 0 10 0 L 1590 0 Q 1600 0 1600 10 L 1600 48 L 0 48 Z" fill="#f5f1e8"/>
-  <line x1="0" y1="48" x2="1600" y2="48" stroke="#a89968" stroke-width="1"/>
-  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#3D3933" font-weight="600">claude-seo.app — 01 · system architecture · B</text>
-  <!-- Traffic lights (right-aligned) -->
-  <circle cx="1516"   cy="24.0" r="9" fill="#fbbf24" stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1544"   cy="24.0" r="9" fill="#10b981"  stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1572" cy="24.0" r="9" fill="#ef4444"    stroke="#a89968" stroke-width="0.7"/>
+  <path d="M 0 10 Q 0 0 10 0 L 1590 0 Q 1600 0 1600 10 L 1600 48 L 0 48 Z" fill="#2A2520"/>
+  <line x1="0" y1="48" x2="1600" y2="48" stroke="#3A312A" stroke-width="1"/>
+  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#E0D2C4" font-weight="600">claude-seo.app — 01 · system architecture · B</text>
+  <circle cx="1516"   cy="24.0" r="9" fill="#fbbf24" stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1544"   cy="24.0" r="9" fill="#10b981"  stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1572" cy="24.0" r="9" fill="#ef4444"    stroke="#3A312A" stroke-width="0.7"/>
 
-<!-- Content area: dark canvas, shifted down by TITLE_H -->
 <g transform="translate(0, 48)">
   <rect class="bg" width="1600" height="700"/>
   <rect x="40.0" y="300.0" width="220" height="100" rx="4" class="box-focal"><animate attributeName="opacity" values="0.85;1;0.85" dur="4.2s" repeatCount="indefinite"/></rect>
@@ -57,13 +49,13 @@
 <text x="800" y="215.0" class="label" text-anchor="middle">25 modules</text>
 <rect x="680.0" y="305.0" width="240" height="90" rx="4" class="box"></rect>
 <text x="800" y="345.0" class="label-accent" text-anchor="middle">audit agents</text>
-<text x="800" y="365.0" class="label" text-anchor="middle">up to 15 parallel</text>
+<text x="800" y="365.0" class="label" text-anchor="middle">6 parallel</text>
 <rect x="680.0" y="455.0" width="240" height="90" rx="4" class="box"></rect>
-<text x="800" y="495.0" class="label-accent" text-anchor="middle">MCP extensions</text>
-<text x="800" y="515.0" class="label" text-anchor="middle">8 servers</text>
+<text x="800" y="495.0" class="label-accent" text-anchor="middle">ai search</text>
+<text x="800" y="515.0" class="label" text-anchor="middle">GEO · LLMs</text>
 <rect x="1090.0" y="300.0" width="220" height="100" rx="4" class="box"></rect>
-<text x="1200" y="345.0" class="label-accent" text-anchor="middle">synthesis</text>
-<text x="1200" y="365.0" class="label" text-anchor="middle">271 tests · framework</text>
+<text x="1200" y="345.0" class="label-accent" text-anchor="middle">scoring</text>
+<text x="1200" y="365.0" class="label" text-anchor="middle">weighted dimensions</text>
 <rect x="1320.0" y="300.0" width="220" height="100" rx="4" class="box"></rect>
 <text x="1430" y="345.0" class="label-accent" text-anchor="middle">report</text>
 <text x="1430" y="365.0" class="label" text-anchor="middle">score · plan</text>

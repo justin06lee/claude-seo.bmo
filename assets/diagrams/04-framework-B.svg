@@ -1,102 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1248"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1548"
      preserveAspectRatio="xMidYMid meet" width="100%" font-family="JetBrains Mono, monospace">
 <defs>
   <style type="text/css"><![CDATA[
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
-    .bg            { fill: #16130F; }
-    .bg-soft       { fill: #1A1612; }
-    .box           { fill: #1E1B16; stroke: #3A332C; stroke-width: 1; }
-    .box-focal     { fill: #232019; stroke: #4F7B6E; stroke-width: 1.4; }
-    .box-future    { fill: #1A1612; stroke: #2F2A24; stroke-width: 1; stroke-dasharray: 4 3; }
-    .box-soft      { fill: #1C1915; stroke: #2F2A24; stroke-width: 1; }
-    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
-    .label         { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 14px; font-weight: 600; }
-    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #8FA89E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
-    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6A8077; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #D8E5DE; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
-    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #8BC0A8; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-    .label-inter   { font-family: 'Inter', system-ui, sans-serif; fill: #F0EDE5; font-size: 14px; font-weight: 500; }
-    .conn          { stroke: #6A8077; stroke-width: 1; fill: none; }
-    .conn-soft     { stroke: #3A615A; stroke-width: 1; fill: none; }
-    .conn-dashed   { stroke: #3A615A; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
-    .accent-fill   { fill: #4F7B6E; }
-    .accent-bright { fill: #8BC0A8; }
-    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5F7770; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .bg            { fill: #1F1B16; }
+    .bg-soft       { fill: #1F1B16; }
+    .box           { fill: #26221C; stroke: #4A3D32; stroke-width: 1; }
+    .box-focal     { fill: #1F2D27; stroke: #D97757; stroke-width: 1.4; }
+    .box-future    { fill: #221E18; stroke: #3A312A; stroke-width: 1; stroke-dasharray: 4 3; }
+    .box-soft      { fill: #232019; stroke: #3A312A; stroke-width: 1; }
+    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+    .label         { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 14px; font-weight: 600; }
+    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #9C8B7E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6F5F54; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #E0D2C4; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
+    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #D97757; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .conn          { stroke: #6F5F54; stroke-width: 1; fill: none; }
+    .conn-soft     { stroke: #4A3D32; stroke-width: 1; fill: none; }
+    .conn-dashed   { stroke: #4A3D32; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+    .accent-fill   { fill: #D97757; }
+    .accent-bright { fill: #F5B095; }
+    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5A5750; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
   ]]></style>
   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6A8077"/>
-  </marker>
-  <marker id="arrow-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3A615A"/>
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6F5F54"/>
   </marker>
 </defs>
-<!-- Window outer border + bg -->
-<rect x="0.5" y="0.5" width="1199" height="1247" rx="10" fill="#FFFFFF" stroke="#a89968" stroke-width="1"/>
+<rect x="0.5" y="0.5" width="1499" height="1547" rx="10" fill="#2A2520" stroke="#3A312A" stroke-width="1"/>
 
-  <!-- OS window title bar -->
-  <path d="M 0 10 Q 0 0 10 0 L 1190 0 Q 1200 0 1200 10 L 1200 48 L 0 48 Z" fill="#f5f1e8"/>
-  <line x1="0" y1="48" x2="1200" y2="48" stroke="#a89968" stroke-width="1"/>
-  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#3D3933" font-weight="600">claude-seo.app — 04 · thinking framework · B</text>
-  <!-- Traffic lights (right-aligned) -->
-  <circle cx="1116"   cy="24.0" r="9" fill="#fbbf24" stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1144"   cy="24.0" r="9" fill="#10b981"  stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1172" cy="24.0" r="9" fill="#ef4444"    stroke="#a89968" stroke-width="0.7"/>
+  <path d="M 0 10 Q 0 0 10 0 L 1490 0 Q 1500 0 1500 10 L 1500 48 L 0 48 Z" fill="#2A2520"/>
+  <line x1="0" y1="48" x2="1500" y2="48" stroke="#3A312A" stroke-width="1"/>
+  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#E0D2C4" font-weight="600">claude-seo.app — 04 · thinking framework · B</text>
+  <circle cx="1416"   cy="24.0" r="9" fill="#fbbf24" stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1444"   cy="24.0" r="9" fill="#10b981"  stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1472" cy="24.0" r="9" fill="#ef4444"    stroke="#3A312A" stroke-width="0.7"/>
 
-<!-- Content area: dark canvas, shifted down by TITLE_H -->
 <g transform="translate(0, 48)">
-  <rect class="bg" width="1200" height="1200"/>
-  <circle cx="600.0" cy="600.0" r="540" fill="none" stroke="#3A615A" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
-<circle cx="600.0" cy="600.0" r="330" fill="none" stroke="#3A615A" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
-<rect x="460.0" y="545.0" width="280" height="110" rx="4" class="box-focal"><animate attributeName="opacity" values="0.85;1;0.85" dur="4.2s" repeatCount="indefinite"/></rect>
-<text x="600.0" y="595.0" class="label-accent" text-anchor="middle">thinking framework</text>
-<text x="600.0" y="615.0" class="label" text-anchor="middle">10 principles · 4 phases</text>
-<rect x="500.0" y="338.0" width="200" height="64" rx="4" class="box"></rect>
-<text x="600.0" y="365.0" class="label-accent" text-anchor="middle">perceive</text>
-<text x="600.0" y="385.0" class="label" text-anchor="middle">gather signals</text>
-<rect x="730.0" y="568.0" width="200" height="64" rx="4" class="box"></rect>
-<text x="830.0" y="595.0" class="label-accent" text-anchor="middle">analyze</text>
-<text x="830.0" y="615.0" class="label" text-anchor="middle">make sense of them</text>
-<rect x="500.0" y="798.0" width="200" height="64" rx="4" class="box"></rect>
-<text x="600.0" y="825.0" class="label-accent" text-anchor="middle">validate</text>
-<text x="600.0" y="845.0" class="label" text-anchor="middle">test the read</text>
-<rect x="270.0" y="568.0" width="200" height="64" rx="4" class="box"></rect>
-<text x="370.0" y="595.0" class="label-accent" text-anchor="middle">act</text>
-<text x="370.0" y="615.0" class="label" text-anchor="middle">ship the response</text>
-<rect x="639.0576474687264" y="147.02456766718092" width="200" height="50" rx="4" class="box"></rect>
-<text x="739.0576474687264" y="177.02456766718092" class="label" text-anchor="middle">observe-external</text>
-<path d="M 681.889503509361 347.9700231817843 L 708.1559480312317 195.80098057455976" class="conn-soft" opacity="0.6"/>
-<rect x="864.0576474687264" y="310.49663646838707" width="200" height="50" rx="4" class="box"></rect>
-<text x="964.0576474687264" y="340.49663646838707" class="label" text-anchor="middle">observe-internal</text>
-<path d="M 814.389503509361 444.2369081424946 L 883.1559480312317 350.1912677756989" class="conn-soft" opacity="0.6"/>
-<rect x="950.0" y="575.0" width="200" height="50" rx="4" class="box"></rect>
-<text x="1050.0" y="605.0" class="label" text-anchor="middle">listen</text>
-<path d="M 865.0 600.0 L 950.0 600.0" class="conn-soft" opacity="0.6"/>
-<rect x="864.0576474687264" y="839.5033635316129" width="200" height="50" rx="4" class="box"></rect>
-<text x="964.0576474687264" y="869.5033635316129" class="label" text-anchor="middle">think</text>
-<path d="M 814.389503509361 755.7630918575054 L 883.1559480312317 849.808732224301" class="conn-soft" opacity="0.6"/>
-<rect x="639.0576474687264" y="1002.9754323328191" width="200" height="50" rx="4" class="box"></rect>
-<text x="739.0576474687264" y="1032.975432332819" class="label" text-anchor="middle">connect-lateral</text>
-<path d="M 681.889503509361 852.0299768182157 L 708.1559480312317 1004.1990194254403" class="conn-soft" opacity="0.6"/>
-<rect x="360.9423525312737" y="1002.9754323328191" width="200" height="50" rx="4" class="box"></rect>
-<text x="460.9423525312737" y="1032.975432332819" class="label" text-anchor="middle">connect-system</text>
-<path d="M 518.110496490639 852.0299768182157 L 491.84405196876844 1004.1990194254403" class="conn-soft" opacity="0.6"/>
-<rect x="135.94235253127368" y="839.5033635316129" width="200" height="50" rx="4" class="box"></rect>
-<text x="235.94235253127368" y="869.5033635316129" class="label" text-anchor="middle">feel</text>
-<path d="M 385.610496490639 755.7630918575054 L 316.84405196876844 849.808732224301" class="conn-soft" opacity="0.6"/>
-<rect x="50.0" y="575.0000000000002" width="200" height="50" rx="4" class="box"></rect>
-<text x="150.0" y="605.0000000000002" class="label" text-anchor="middle">accept</text>
-<path d="M 335.0 600.0000000000001 L 250.0 600.0000000000002" class="conn-soft" opacity="0.6"/>
-<rect x="135.94235253127357" y="310.4966364683871" width="200" height="50" rx="4" class="box"></rect>
-<text x="235.94235253127357" y="340.4966364683871" class="label" text-anchor="middle">create</text>
-<path d="M 385.61049649063887 444.23690814249466 L 316.8440519687683 350.191267775699" class="conn-soft" opacity="0.6"/>
-<rect x="360.9423525312736" y="147.02456766718092" width="200" height="50" rx="4" class="box"></rect>
-<text x="460.9423525312736" y="177.02456766718092" class="label" text-anchor="middle">grow</text>
-<path d="M 518.1104964906389 347.9700231817843 L 491.8440519687684 195.80098057455976" class="conn-soft" opacity="0.6"/>
-<path d="M 720.2081528017131 479.7918471982869 L 981.8376618407357 218.16233815926438" class="conn-dashed" opacity="0.35"/>
-<path d="M 720.2081528017131 720.208152801713 L 981.8376618407357 981.8376618407356" class="conn-dashed" opacity="0.35"/>
-<path d="M 479.7918471982869 720.2081528017131 L 218.16233815926438 981.8376618407357" class="conn-dashed" opacity="0.35"/>
-<path d="M 479.79184719828686 479.7918471982869 L 218.16233815926427 218.16233815926438" class="conn-dashed" opacity="0.35"/>
-  <text x="1180" y="1188" class="corner-mark" text-anchor="end">04 · thinking framework · B</text>
+  <rect class="bg" width="1500" height="1500"/>
+  <circle cx="750.0" cy="750.0" r="580" fill="none" stroke="#6F3922" stroke-width="1" stroke-dasharray="3 3" opacity="0.25"/>
+<circle cx="750.0" cy="750.0" r="340" fill="none" stroke="#6F3922" stroke-width="1" stroke-dasharray="3 3" opacity="0.30"/>
+<path d="M 537.8679656440357 537.8679656440357 L 304.5227278524751 304.52272785247504" class="conn-dashed" opacity="0.25"/>
+<path d="M 962.1320343559643 537.8679656440357 L 1195.477272147525 304.5227278524751" class="conn-dashed" opacity="0.25"/>
+<path d="M 962.1320343559643 962.1320343559643 L 1195.477272147525 1195.477272147525" class="conn-dashed" opacity="0.25"/>
+<path d="M 537.8679656440357 962.1320343559643 L 304.5227278524751 1195.477272147525" class="conn-dashed" opacity="0.25"/>
+<path d="M 686.7 370.0 L 518.8 263.9" class="conn-soft" opacity="0.6"/>
+<path d="M 750.0 370.0 L 750.0 196.0" class="conn-soft" opacity="0.6"/>
+<path d="M 813.3 370.0 L 981.2 263.9" class="conn-soft" opacity="0.6"/>
+<path d="M 1115.3 710.0 L 1245.7 503.7" class="conn-soft" opacity="0.6"/>
+<path d="M 1200.0 750.0 L 1225.0 750.0" class="conn-soft" opacity="0.6"/>
+<path d="M 1115.3 790.0 L 1245.7 996.3" class="conn-soft" opacity="0.6"/>
+<path d="M 813.3 1130.0 L 981.2 1236.1" class="conn-soft" opacity="0.6"/>
+<path d="M 686.7 1130.0 L 518.8 1236.1" class="conn-soft" opacity="0.6"/>
+<path d="M 384.7 790.0 L 254.3 996.3" class="conn-soft" opacity="0.6"/>
+<path d="M 384.7 710.0 L 254.3 503.7" class="conn-soft" opacity="0.6"/>
+<rect x="640.0" y="370.0" width="220" height="80" rx="4" class="box"></rect>
+<text x="750.0" y="405.0" class="label-accent" text-anchor="middle">perceive</text>
+<text x="750.0" y="425.0" class="label" text-anchor="middle">gather signals</text>
+<rect x="980.0" y="710.0" width="220" height="80" rx="4" class="box"></rect>
+<text x="1090.0" y="745.0" class="label-accent" text-anchor="middle">analyze</text>
+<text x="1090.0" y="765.0" class="label" text-anchor="middle">make sense of them</text>
+<rect x="640.0" y="1050.0" width="220" height="80" rx="4" class="box"></rect>
+<text x="750.0" y="1085.0" class="label-accent" text-anchor="middle">validate</text>
+<text x="750.0" y="1105.0" class="label" text-anchor="middle">test the read</text>
+<rect x="300.0" y="710.0" width="220" height="80" rx="4" class="box"></rect>
+<text x="410.0" y="745.0" class="label-accent" text-anchor="middle">act</text>
+<text x="410.0" y="765.0" class="label" text-anchor="middle">ship the response</text>
+<rect x="372.70649358418325" y="211.8903961418224" width="210" height="52" rx="4" class="box"></rect>
+<text x="477.70649358418325" y="242.8903961418224" class="label" text-anchor="middle">observe-external</text>
+<rect x="645.0" y="144.0" width="210" height="52" rx="4" class="box"></rect>
+<text x="750.0" y="175.0" class="label" text-anchor="middle">observe-internal</text>
+<rect x="917.2935064158166" y="211.8903961418224" width="210" height="52" rx="4" class="box"></rect>
+<text x="1022.2935064158166" y="242.8903961418224" class="label" text-anchor="middle">listen</text>
+<rect x="1157.1096038581777" y="451.7064935841833" width="210" height="52" rx="4" class="box"></rect>
+<text x="1262.1096038581777" y="482.7064935841833" class="label" text-anchor="middle">think</text>
+<rect x="1225.0" y="724.0" width="210" height="52" rx="4" class="box"></rect>
+<text x="1330.0" y="755.0" class="label" text-anchor="middle">connect-lateral</text>
+<rect x="1157.1096038581777" y="996.2935064158166" width="210" height="52" rx="4" class="box"></rect>
+<text x="1262.1096038581777" y="1027.2935064158166" class="label" text-anchor="middle">connect-system</text>
+<rect x="917.2935064158166" y="1236.1096038581777" width="210" height="52" rx="4" class="box"></rect>
+<text x="1022.2935064158166" y="1267.1096038581777" class="label" text-anchor="middle">feel</text>
+<rect x="372.70649358418325" y="1236.1096038581777" width="210" height="52" rx="4" class="box"></rect>
+<text x="477.70649358418325" y="1267.1096038581777" class="label" text-anchor="middle">accept</text>
+<rect x="132.8903961418223" y="996.2935064158166" width="210" height="52" rx="4" class="box"></rect>
+<text x="237.8903961418223" y="1027.2935064158166" class="label" text-anchor="middle">create</text>
+<rect x="132.8903961418224" y="451.7064935841833" width="210" height="52" rx="4" class="box"></rect>
+<text x="237.8903961418224" y="482.7064935841833" class="label" text-anchor="middle">grow</text>
+<rect x="570.0" y="695.0" width="360" height="110" rx="4" class="box-focal"><animate attributeName="opacity" values="0.85;1;0.85" dur="4.2s" repeatCount="indefinite"/></rect>
+<text x="750.0" y="745.0" class="label-accent" text-anchor="middle">thinking framework</text>
+<text x="750.0" y="765.0" class="label" text-anchor="middle">10 principles · 4 phases</text>
+  <text x="1480" y="1488" class="corner-mark" text-anchor="end">04 · thinking framework · B</text>
 </g>
 </svg>

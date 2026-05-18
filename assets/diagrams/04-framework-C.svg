@@ -4,54 +4,45 @@
 <defs>
   <style type="text/css"><![CDATA[
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
-    .bg            { fill: #16130F; }
-    .bg-soft       { fill: #1A1612; }
-    .box           { fill: #1E1B16; stroke: #3A332C; stroke-width: 1; }
-    .box-focal     { fill: #232019; stroke: #4F7B6E; stroke-width: 1.4; }
-    .box-future    { fill: #1A1612; stroke: #2F2A24; stroke-width: 1; stroke-dasharray: 4 3; }
-    .box-soft      { fill: #1C1915; stroke: #2F2A24; stroke-width: 1; }
-    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
-    .label         { font-family: 'JetBrains Mono', monospace; fill: #F0EDE5; font-size: 14px; font-weight: 600; }
-    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #8FA89E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
-    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6A8077; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #D8E5DE; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
-    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #8BC0A8; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-    .label-inter   { font-family: 'Inter', system-ui, sans-serif; fill: #F0EDE5; font-size: 14px; font-weight: 500; }
-    .conn          { stroke: #6A8077; stroke-width: 1; fill: none; }
-    .conn-soft     { stroke: #3A615A; stroke-width: 1; fill: none; }
-    .conn-dashed   { stroke: #3A615A; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
-    .accent-fill   { fill: #4F7B6E; }
-    .accent-bright { fill: #8BC0A8; }
-    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5F7770; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .bg            { fill: #1F1B16; }
+    .bg-soft       { fill: #1F1B16; }
+    .box           { fill: #26221C; stroke: #4A3D32; stroke-width: 1; }
+    .box-focal     { fill: #1F2D27; stroke: #D97757; stroke-width: 1.4; }
+    .box-future    { fill: #221E18; stroke: #3A312A; stroke-width: 1; stroke-dasharray: 4 3; }
+    .box-soft      { fill: #232019; stroke: #3A312A; stroke-width: 1; }
+    .label-h       { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+    .label         { font-family: 'JetBrains Mono', monospace; fill: #F5F4ED; font-size: 14px; font-weight: 600; }
+    .label-sub     { font-family: 'JetBrains Mono', monospace; fill: #9C8B7E; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .label-tiny    { font-family: 'JetBrains Mono', monospace; fill: #6F5F54; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .label-radial  { font-family: 'JetBrains Mono', monospace; fill: #E0D2C4; font-size: 13px; font-weight: 600; letter-spacing: 0.6px; }
+    .label-accent  { font-family: 'JetBrains Mono', monospace; fill: #D97757; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .conn          { stroke: #6F5F54; stroke-width: 1; fill: none; }
+    .conn-soft     { stroke: #4A3D32; stroke-width: 1; fill: none; }
+    .conn-dashed   { stroke: #4A3D32; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+    .accent-fill   { fill: #D97757; }
+    .accent-bright { fill: #F5B095; }
+    .corner-mark   { font-family: 'JetBrains Mono', monospace; fill: #5A5750; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
   ]]></style>
   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6A8077"/>
-  </marker>
-  <marker id="arrow-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3A615A"/>
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6F5F54"/>
   </marker>
 </defs>
-<!-- Window outer border + bg -->
-<rect x="0.5" y="0.5" width="1499" height="867" rx="10" fill="#FFFFFF" stroke="#a89968" stroke-width="1"/>
+<rect x="0.5" y="0.5" width="1499" height="867" rx="10" fill="#2A2520" stroke="#3A312A" stroke-width="1"/>
 
-  <!-- OS window title bar -->
-  <path d="M 0 10 Q 0 0 10 0 L 1490 0 Q 1500 0 1500 10 L 1500 48 L 0 48 Z" fill="#f5f1e8"/>
-  <line x1="0" y1="48" x2="1500" y2="48" stroke="#a89968" stroke-width="1"/>
-  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#3D3933" font-weight="600">claude-seo.app — 04 · thinking framework · C</text>
-  <!-- Traffic lights (right-aligned) -->
-  <circle cx="1416"   cy="24.0" r="9" fill="#fbbf24" stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1444"   cy="24.0" r="9" fill="#10b981"  stroke="#a89968" stroke-width="0.7"/>
-  <circle cx="1472" cy="24.0" r="9" fill="#ef4444"    stroke="#a89968" stroke-width="0.7"/>
+  <path d="M 0 10 Q 0 0 10 0 L 1490 0 Q 1500 0 1500 10 L 1500 48 L 0 48 Z" fill="#2A2520"/>
+  <line x1="0" y1="48" x2="1500" y2="48" stroke="#3A312A" stroke-width="1"/>
+  <text x="20" y="29.0" font-family="JetBrains Mono, monospace" font-size="15" fill="#E0D2C4" font-weight="600">claude-seo.app — 04 · thinking framework · C</text>
+  <circle cx="1416"   cy="24.0" r="9" fill="#fbbf24" stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1444"   cy="24.0" r="9" fill="#10b981"  stroke="#3A312A" stroke-width="0.7"/>
+  <circle cx="1472" cy="24.0" r="9" fill="#ef4444"    stroke="#3A312A" stroke-width="0.7"/>
 
-<!-- Content area: dark canvas, shifted down by TITLE_H -->
 <g transform="translate(0, 48)">
   <rect class="bg" width="1500" height="820"/>
   <text x="750.0" y="60" class="label-sub" text-anchor="middle">10-principle framework · 4 phases, 10 principles</text>
 <rect x="30" y="110" width="1440" height="150" rx="8" class="box-focal"></rect>
 <text x="60" y="160" class="label-accent" text-anchor="start">phase 01</text>
 <text x="60" y="188" class="label" text-anchor="start">perceive</text>
-<text x="60" y="210" class="label-tiny" text-anchor="start">gather signals</text>
-<text x="60" y="235" class="label-tiny" text-anchor="start">external · internal · linguistic signal capture</text>
+<text x="60" y="215" class="label-tiny" text-anchor="start">gather signals</text>
 <rect x="240.0" y="150.0" width="280" height="70" rx="4" class="box"></rect>
 <text x="380.0" y="190.0" class="label" text-anchor="middle">observe-external</text>
 <rect x="544.0" y="150.0" width="280" height="70" rx="4" class="box"></rect>
@@ -61,8 +52,7 @@
 <rect x="30" y="280" width="1440" height="150" rx="8" class="box-soft"></rect>
 <text x="60" y="330" class="label-accent" text-anchor="start">phase 02</text>
 <text x="60" y="358" class="label" text-anchor="start">analyze</text>
-<text x="60" y="380" class="label-tiny" text-anchor="start">make sense of them</text>
-<text x="60" y="405" class="label-tiny" text-anchor="start">first-principles + lateral + systemic reasoning</text>
+<text x="60" y="385" class="label-tiny" text-anchor="start">make sense of them</text>
 <rect x="240.0" y="320.0" width="280" height="70" rx="4" class="box"></rect>
 <text x="380.0" y="360.0" class="label" text-anchor="middle">think</text>
 <rect x="544.0" y="320.0" width="280" height="70" rx="4" class="box"></rect>
@@ -72,8 +62,7 @@
 <rect x="30" y="450" width="1440" height="150" rx="8" class="box-soft"></rect>
 <text x="60" y="500" class="label-accent" text-anchor="start">phase 03</text>
 <text x="60" y="528" class="label" text-anchor="start">validate</text>
-<text x="60" y="550" class="label-tiny" text-anchor="start">test the read</text>
-<text x="60" y="575" class="label-tiny" text-anchor="start">gut-check + truth-acceptance before commit</text>
+<text x="60" y="555" class="label-tiny" text-anchor="start">test the read</text>
 <rect x="240.0" y="490.0" width="280" height="70" rx="4" class="box"></rect>
 <text x="380.0" y="530.0" class="label" text-anchor="middle">feel</text>
 <rect x="544.0" y="490.0" width="280" height="70" rx="4" class="box"></rect>
@@ -81,8 +70,7 @@
 <rect x="30" y="620" width="1440" height="150" rx="8" class="box-soft"></rect>
 <text x="60" y="670" class="label-accent" text-anchor="start">phase 04</text>
 <text x="60" y="698" class="label" text-anchor="start">act</text>
-<text x="60" y="720" class="label-tiny" text-anchor="start">ship the response</text>
-<text x="60" y="745" class="label-tiny" text-anchor="start">build the deliverable + leave it healthier</text>
+<text x="60" y="725" class="label-tiny" text-anchor="start">ship the response</text>
 <rect x="240.0" y="660.0" width="280" height="70" rx="4" class="box"></rect>
 <text x="380.0" y="700.0" class="label" text-anchor="middle">create</text>
 <rect x="544.0" y="660.0" width="280" height="70" rx="4" class="box"></rect>

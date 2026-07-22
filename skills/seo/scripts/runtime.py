@@ -102,6 +102,15 @@ def _plugin_version(root: Path) -> str:
                 return match.group(1)
         except OSError:
             pass
+    # A skill-folder install has no plugin manifest at all, so fall back to the
+    # version the skill already declares in its own frontmatter.
+    try:
+        head = (root / "SKILL.md").read_text(encoding="utf-8")[:2000]
+        match = re.search(r'(?m)^\s+version:\s*"?([0-9][^"\s]*)"?\s*$', head)
+        if match:
+            return match.group(1)
+    except OSError:
+        pass
     return "unknown"
 
 

@@ -223,3 +223,32 @@ def test_run_propagates_child_signal(tmp_path: Path, monkeypatch: pytest.MonkeyP
     )
     assert rc == 128 + signal.SIGTERM
     assert delivered == [(os.getpid(), signal.SIGTERM)]
+
+
+def test_version_resolves_from_the_enclosing_plugin_root(tmp_path: Path) -> None:
+    """A plugin checkout keeps its manifest at the plugin root, two levels above
+    the skill the runtime lives in."""
+    skill = tmp_path / "skills" / "seo"
+    (skill / "scripts").mkdir(parents=True)
+    (tmp_path / ".claude-plugin").mkdir()
+    (tmp_path / ".claude-plugin" / "plugin.json").write_text(
+        '{"version":"9.9.9"}\n', encoding="utf-8"
+    )
+    assert runtime._plugin_version(skill) == "9.9.9"
+
+
+def test_version_falls_back_to_skill_frontmatter(tmp_path: Path) -> None:
+    """A skill-folder install ships no plugin manifest, so the version comes
+    from the frontmatter the skill already declares."""
+    skill = tmp_path / "seo"
+    skill.mkdir()
+    (skill / "SKILL.md").write_text(
+        '---\nname: seo\ndescription: Test.\nmetadata:\n  author: x\n'
+        '  version: "3.1.4"\n---\n# SEO\n',
+        encoding="utf-8",
+    )
+    assert runtime._plugin_version(skill) == "3.1.4"
+
+
+def test_version_is_unknown_without_any_source(tmp_path: Path) -> None:
+    assert runtime._plugin_version(tmp_path) == "unknown"

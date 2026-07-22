@@ -8,10 +8,10 @@ authors:
     given-names: Daniel
     family-names: Agrici
     website: 'https://agricidaniel.com'
-repository-code: 'https://github.com/AgriciDaniel/claude-seo'
-url: 'https://github.com/AgriciDaniel/claude-seo'
+repository-code: 'https://github.com/justin06lee/claude-seo.bmo'
+url: 'https://github.com/justin06lee/claude-seo.bmo'
 license: MIT
-version: 2.2.4
+version: 2.3.0
 date-released: '2026-07-20'
 keywords:
   - seo

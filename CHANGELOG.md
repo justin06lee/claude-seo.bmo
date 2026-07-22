@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-07-21
+
+Fork release. This repository is a distribution of
+[AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo); upstream authorship,
+the MIT license, and contributor credit are unchanged. Full suite: 415 passing tests.
+
+### Changed
+
+- The `seo` skill now carries its own runtime. `scripts/`, `agents/`, `schema/`, `pdf/`,
+  `data/`, `bin/`, and `requirements.txt` moved into `skills/seo/`, which is the directory
+  the runtime already treated as its root. Installing that one folder now yields a working
+  whole, which is what makes skill-granularity installation possible.
+- `.claude-plugin/plugin.json` declares all 18 subagents explicitly. Claude Code's `agents`
+  key takes file paths and replaces the default `agents/` scan, so a subagent that is not
+  listed does not exist for plugin users; a test pins the list to disk.
+- `bin/claude-seo` at the repository root is now a shim that execs the launcher inside the
+  skill. Claude Code adds only `<plugin-root>/bin` to PATH and offers no manifest field to
+  relocate it, so the shim is what keeps the command working for plugin installs.
+- Distribution pointers (repository URLs, marketplace slug, installer tag) name this fork.
+  `hooks/` stays at the plugin root, where it is auto-discovered.
+- `CLAUDE.md` documents the fork's actual single-remote topology. The previous
+  public/private two-remote workflow described a setup this repository does not have, and
+  `docs/WORKFLOW-public-private.md` was removed with it.
+
+### Added
+
+- Installation via [bmo](https://github.com/justin06lee/bmo):
+  `bmo add justin06lee/claude-seo.bmo/skills --all` installs all 25 skills and their 18
+  subagents in one command.
+
+### Fixed
+
+- The runtime resolves its version in a skill-folder install, where no plugin manifest is
+  present, by reading the enclosing plugin root when nested in one and otherwise the
+  version the skill declares in its own frontmatter.
+
 ## [2.2.4] - 2026-07-20
 
 Community maintenance release following a full review of every open issue and pull request.

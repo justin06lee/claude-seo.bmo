@@ -241,60 +241,42 @@ Part of the Claude Code skill family:
 3. **Parallel Execution**: Full audits spawn up to 15 subagents simultaneously
 4. **Extension System**: DataForSEO, Firecrawl, Banana, Ahrefs, SE Ranking, Profound, Bing Webmaster, and Unlighthouse extensions
 
-## Repository Topology (public + private)
+## Repository Topology
 
-This project is mirrored across two GitHub remotes that share git history.
-Both originate from the same local checkout; neither is a GitHub fork of
-the other (different orgs, no parent/child relationship in the GitHub UI).
+This repository is a **fork** of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo),
+distributed at `justin06lee/claude-seo.bmo`. It has one remote.
 
-| Remote | URL | Visibility | Role |
-|---|---|---|---|
-| `origin` | `https://github.com/AgriciDaniel/claude-seo` | **Public** | Published distribution. Users discover, clone, and install from here. `main` only reflects released history. |
-| `aimh` | `https://github.com/AI-Marketing-Hub/claude-seo` | **Private** | Working repo inside the AI Marketing Hub org. Daily development. v2 branch + post-release work lives here before promotion to public. |
+| Remote | URL | Role |
+|---|---|---|
+| `origin` | `https://github.com/justin06lee/claude-seo.bmo` | The only remote. Development and releases both live here. |
+
+Upstream is not configured as a remote. To pull upstream changes, add it
+explicitly and merge:
+
+```bash
+git remote add upstream https://github.com/AgriciDaniel/claude-seo
+git fetch upstream
+git merge upstream/main
+```
+
+Expect conflicts around layout: this fork moved the runtime into
+`skills/seo/` (see "Architecture"), so upstream changes to `scripts/`,
+`agents/`, or `bin/` land at paths that no longer exist here. Resolve by
+applying the upstream change to the corresponding `skills/seo/` path.
 
 ### Workflow
 
-Daily development:
-- Work on `v2` (or feature branches off `v2`) locally.
-- `git push aimh <branch>` to publish work-in-progress to the private repo
-  (Dependabot, Actions, and CI run there).
+- Work on a branch, merge into `main` with `--no-ff`, tag the feature.
+- Releases are tagged `vX.Y.Z` and pushed to `origin` along with `main`.
+- `install.sh` and `install.ps1` pin `REPO_TAG` to the current release, and
+  `tests/test_manifest_consistency.py` fails if that tag drifts from
+  `plugin.json`. Bump both in the release commit, then tag.
 
-Promoting to public on release:
-1. Merge `v2` into local `main` when ready to release (fast-forward).
-2. Tag the release locally (`git tag -a vX.Y.Z`).
-3. Push the tag and main to **both** remotes in this order:
-   - First: `git push aimh main && git push aimh vX.Y.Z`
-   - Then: `git push origin vX.Y.Z && git push origin main`
-   - The "tag before merge" sequence (see `feedback_push_caution` memory)
-     applies on `origin` to avoid the `curl|bash` outage window where
-     users pull a tag that doesn't yet point at code on `main`.
-4. `gh release create vX.Y.Z --repo AgriciDaniel/claude-seo` (public-only).
-5. `/release-blog` to publish the release post.
+### Attribution
 
-### Safety rules
-
-- **Never push to `origin/main` autonomously.** The public is release-only;
-  pushes are user-authorized per-release.
-- **`aimh` accepts day-to-day pushes.** No release-gate ceremony required
-  for the private remote.
-- **Tags push to private first.** Historical pre-release illustration: v2.0.0
-  once lived on `aimh` before `origin`. Current released tags through v2.2.4
-  are on both remotes.
-- **History stays shared.** Never rewrite history on either remote with
-  force-push unless explicitly authorized for that specific operation.
-
-### Verifying the topology
-
-```bash
-# Both remotes configured
-git remote -v        # expects: origin (public) + aimh (private)
-
-# Both share main HEAD
-git ls-remote --heads aimh main
-git ls-remote --heads origin main   # origin = aimh/main + 1 public-branding commit (intentional; see docs/WORKFLOW-public-private.md)
-```
-
-Full workflow reference: `docs/WORKFLOW-public-private.md`.
+The MIT license, the upstream copyright in every `LICENSE.txt`, `CITATION.cff`
+authorship, and `CONTRIBUTORS.md` credits are upstream's and stay unchanged.
+Only distribution pointers (repository URLs, marketplace slug) name this fork.
 
 ## Release Blog Post
 

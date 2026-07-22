@@ -9,8 +9,8 @@
 # uninstaller.
 #
 # Plugin-install users should use Claude Code's own command instead:
-#   /plugin uninstall claude-seo@agricidaniel-claude-seo
-#   /plugin marketplace remove AgriciDaniel/claude-seo
+#   /plugin uninstall claude-seo@justin06lee-claude-seo
+#   /plugin marketplace remove justin06lee/claude-seo.bmo
 
 $ErrorActionPreference = "Stop"
 

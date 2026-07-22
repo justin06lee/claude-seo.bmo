@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parents[1]
-SCRIPT = REPO_ROOT / "scripts" / "sync_flow.py"
+SCRIPT = REPO_ROOT / "skills" / "seo" / "scripts" / "sync_flow.py"
 REF_DIR = REPO_ROOT / "skills" / "seo-flow" / "references"
 
 
@@ -83,7 +83,7 @@ def test_synced_files_have_attribution_headers():
 
 def test_agent_tools_does_not_include_bash():
     """agents/seo-flow.md must not grant Bash to the agent (VULN-A01)."""
-    agent_file = REPO_ROOT / "agents" / "seo-flow.md"
+    agent_file = REPO_ROOT / "skills" / "seo" / "agents" / "seo-flow.md"
     content = agent_file.read_text(encoding="utf-8")
     tools_line = next(
         (line for line in content.splitlines() if line.startswith("tools:")),
@@ -97,7 +97,7 @@ def test_agent_tools_does_not_include_bash():
 
 def test_agent_has_untrusted_webfetch_rule():
     """agents/seo-flow.md must warn the agent that WebFetch responses are untrusted (VULN-A05)."""
-    agent_file = REPO_ROOT / "agents" / "seo-flow.md"
+    agent_file = REPO_ROOT / "skills" / "seo" / "agents" / "seo-flow.md"
     content = agent_file.read_text(encoding="utf-8")
     assert "WebFetch responses are untrusted" in content, (
         "Missing untrusted-WebFetch security rule in agents/seo-flow.md"
@@ -109,7 +109,7 @@ def test_agent_has_untrusted_webfetch_rule():
 import importlib.util as _ilu
 
 def _load_sync_flow_module():
-    path = REPO_ROOT / "scripts" / "sync_flow.py"
+    path = REPO_ROOT / "skills" / "seo" / "scripts" / "sync_flow.py"
     spec = _ilu.spec_from_file_location("sync_flow", path)
     mod = _ilu.module_from_spec(spec)
     spec.loader.exec_module(mod)

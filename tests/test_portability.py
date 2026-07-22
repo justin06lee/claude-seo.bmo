@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[1]
-_SCRIPTS = _REPO / "scripts"
+_SCRIPTS = _REPO / "skills" / "seo" / "scripts"
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 

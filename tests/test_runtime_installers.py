@@ -30,10 +30,21 @@ def test_windows_installer_delegates_to_runtime_without_path_mutation() -> None:
 
 
 def test_launcher_is_executable_and_uses_safe_exec() -> None:
-    launcher = ROOT / "bin/claude-seo"
+    launcher = ROOT / "skills/seo/bin/claude-seo"
     assert launcher.stat().st_mode & 0o100
     text = launcher.read_text(encoding="utf-8")
     assert 'exec py -3 "${runtime}" "$@"' in text
     assert 'exec python3 "${runtime}" "$@"' in text
     assert 'exec python "${runtime}" "$@"' in text
+    assert "eval " not in text
+
+
+def test_plugin_bin_shim_delegates_to_the_skill_launcher() -> None:
+    """Claude Code only adds <plugin-root>/bin to PATH, and no manifest field
+    can point that elsewhere, so the root shim must survive and delegate."""
+    shim = ROOT / "bin/claude-seo"
+    assert shim.stat().st_mode & 0o100
+    text = shim.read_text(encoding="utf-8")
+    assert 'exec "${launcher}" "$@"' in text
+    assert "skills/seo/bin/claude-seo" in text
     assert "eval " not in text

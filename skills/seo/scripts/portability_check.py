@@ -47,7 +47,20 @@ import sys
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+def _repo_root() -> Path:
+    """Locate the repository root from inside the seo skill.
+
+    This is a development-time linter that scans every skill, so it needs the
+    repository root rather than the skill root the runtime resolves.
+    """
+    here = Path(__file__).resolve()
+    for candidate in here.parents:
+        if (candidate / ".claude-plugin" / "plugin.json").is_file():
+            return candidate
+    return here.parents[1]
+
+
+REPO_ROOT = _repo_root()
 
 
 _NAME_RE = re.compile(r"^[a-z][a-z0-9-]{1,62}[a-z0-9]$")

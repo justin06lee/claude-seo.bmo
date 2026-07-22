@@ -157,43 +157,16 @@ try {
         }
     }
 
-    # Copy schema templates
-    $SchemaPath = "$TempDir\schema"
-    if (Test-Path $SchemaPath) {
-        $SkillSchema = "$SkillDir\schema"
-        New-Item -ItemType Directory -Force -Path $SkillSchema | Out-Null
-        Copy-Item -Recurse -Force "$SchemaPath\*" $SkillSchema
-    }
+    # scripts/, bin/, schema/, pdf/, data/, references/, and requirements.txt
+    # all live inside the seo skill, so the skill copy above already installed
+    # them.
 
-    # Copy reference docs
-    $PdfPath = "$TempDir\pdf"
-    if (Test-Path $PdfPath) {
-        $SkillPdf = "$SkillDir\pdf"
-        New-Item -ItemType Directory -Force -Path $SkillPdf | Out-Null
-        Copy-Item -Recurse -Force "$PdfPath\*" $SkillPdf
-    }
-
-    # Copy agents
+    # Copy subagents. Claude Code discovers them from its own agents directory,
+    # never from inside a skill, so they are copied out separately.
     Write-Host "=> Installing subagents..." -ForegroundColor Yellow
-    $AgentsPath = Join-Path $TempDir 'agents'
+    $AgentsPath = Join-Path $TempDir 'skills\seo\agents'
     if (Test-Path $AgentsPath) {
         Copy-Item -Force (Join-Path $AgentsPath '*.md') $AgentDir -ErrorAction SilentlyContinue
-    }
-
-    # Copy shared scripts
-    $ScriptsPath = "$TempDir\scripts"
-    if (Test-Path $ScriptsPath) {
-        $SkillScripts = "$SkillDir\scripts"
-        New-Item -ItemType Directory -Force -Path $SkillScripts | Out-Null
-        Copy-Item -Recurse -Force "$ScriptsPath\*" $SkillScripts
-    }
-
-    # Copy the stable launcher used by skill and agent instructions.
-    $BinPath = Join-Path $TempDir 'bin'
-    $SkillBin = Join-Path $SkillDir 'bin'
-    if (Test-Path (Join-Path $BinPath 'claude-seo')) {
-        New-Item -ItemType Directory -Force -Path $SkillBin | Out-Null
-        Copy-Item -Force (Join-Path $BinPath 'claude-seo') (Join-Path $SkillBin 'claude-seo')
     }
 
     # Copy hooks
@@ -243,12 +216,8 @@ try {
         }
     }
 
-    # Copy requirements.txt to skill dir for retry
-    $reqFile = Join-Path $TempDir 'requirements.txt'
-    $installedReqFile = Join-Path $SkillDir 'requirements.txt'
-    if (Test-Path $reqFile) {
-        Copy-Item -Force $reqFile $installedReqFile
-    }
+    # Record the version for the runtime, which reads plugin metadata from the
+    # plugin root and cannot see it from a standalone skill install.
     $pluginManifest = Join-Path $TempDir '.claude-plugin\plugin.json'
     if (Test-Path $pluginManifest) {
         Copy-Item -Force $pluginManifest (Join-Path $SkillDir 'runtime-plugin.json')

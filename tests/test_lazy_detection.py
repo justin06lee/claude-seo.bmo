@@ -11,7 +11,7 @@ from pathlib import Path
 
 # Make scripts/ importable without requiring it to be a package
 REPO_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
+sys.path.insert(0, str(REPO_ROOT / "skills" / "seo" / "scripts"))
 
 from bs4 import BeautifulSoup  # noqa: E402
 from parse_html import _detect_lazy_method, parse_html  # noqa: E402

@@ -7,6 +7,26 @@
     "url": "https://github.com/AgriciDaniel"
   },
   "license": "MIT",
+  "agents": [
+    "./skills/seo/agents/seo-backlinks.md",
+    "./skills/seo/agents/seo-cluster.md",
+    "./skills/seo/agents/seo-content.md",
+    "./skills/seo/agents/seo-dataforseo.md",
+    "./skills/seo/agents/seo-drift.md",
+    "./skills/seo/agents/seo-ecommerce.md",
+    "./skills/seo/agents/seo-flow.md",
+    "./skills/seo/agents/seo-geo.md",
+    "./skills/seo/agents/seo-google.md",
+    "./skills/seo/agents/seo-image-gen.md",
+    "./skills/seo/agents/seo-local.md",
+    "./skills/seo/agents/seo-maps.md",
+    "./skills/seo/agents/seo-performance.md",
+    "./skills/seo/agents/seo-schema.md",
+    "./skills/seo/agents/seo-sitemap.md",
+    "./skills/seo/agents/seo-sxo.md",
+    "./skills/seo/agents/seo-technical.md",
+    "./skills/seo/agents/seo-visual.md"
+  ],
   "homepage": "https://claude-seo.md",
   "repository": "https://github.com/AgriciDaniel/claude-seo",
   "keywords": [

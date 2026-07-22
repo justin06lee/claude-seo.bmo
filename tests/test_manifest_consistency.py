@@ -31,7 +31,7 @@ def _count_skill_dirs() -> int:
 
 def _count_agent_files() -> int:
     """Count agents/seo-*.md files."""
-    agents_dir = REPO_ROOT / "agents"
+    agents_dir = REPO_ROOT / "skills" / "seo" / "agents"
     return sum(
         1 for f in agents_dir.iterdir()
         if f.is_file() and f.suffix == ".md" and f.name.startswith("seo-")
@@ -73,6 +73,27 @@ def test_plugin_json_subagent_count_matches_disk():
         f"plugin.json description claims {claimed} sub-agents "
         f"but disk has {actual}. "
         f"Update the description to match the new count."
+    )
+
+
+def test_plugin_json_declares_every_agent_file():
+    """plugin.json's `agents` list must name every file in skills/seo/agents/.
+
+    The agents live inside the seo skill so a skill-folder install carries
+    them, but Claude Code's `agents` manifest key accepts file paths only and
+    replaces the default `agents/` scan. A file missing from this list is a
+    subagent that silently does not exist for plugin users.
+    """
+    plugin = json.loads(PLUGIN_JSON.read_text(encoding="utf-8"))
+    declared = sorted(plugin.get("agents", []))
+    on_disk = sorted(
+        f"./skills/seo/agents/{path.name}"
+        for path in (REPO_ROOT / "skills" / "seo" / "agents").glob("*.md")
+    )
+    assert declared == on_disk, (
+        "plugin.json `agents` is out of sync with skills/seo/agents/.\n"
+        f"  missing from manifest: {sorted(set(on_disk) - set(declared))}\n"
+        f"  declared but absent:   {sorted(set(declared) - set(on_disk))}"
     )
 
 
@@ -243,7 +264,7 @@ def test_orchestrator_subagents_list_matches_disk():
     )
     listed = set(listed_list)
     on_disk = {
-        p.stem for p in (REPO_ROOT / "agents").iterdir()
+        p.stem for p in (REPO_ROOT / "skills" / "seo" / "agents").iterdir()
         if p.is_file() and p.suffix == ".md" and p.name.startswith("seo-")
     }
     assert listed == on_disk, (
@@ -406,7 +427,7 @@ def test_reference_files_have_at_least_one_link():
 
     search_paths: list[Path] = []
     search_paths += list((REPO_ROOT / "skills").glob("*/SKILL.md"))
-    search_paths += list((REPO_ROOT / "agents").glob("*.md"))
+    search_paths += list((REPO_ROOT / "skills" / "seo" / "agents").glob("*.md"))
     search_paths += list((REPO_ROOT / "docs").glob("*.md"))
     for doc in ("README.md", "CHANGELOG.md", "CLAUDE.md",
                 "AGENTS.md", "CONTRIBUTING.md"):

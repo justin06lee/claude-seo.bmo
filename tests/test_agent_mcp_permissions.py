@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AGENTS = (
-    ROOT / "agents" / "seo-dataforseo.md",
+    ROOT / "skills" / "seo" / "agents" / "seo-dataforseo.md",
     ROOT / "extensions" / "dataforseo" / "agents" / "seo-dataforseo.md",
 )
 

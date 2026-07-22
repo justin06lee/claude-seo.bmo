@@ -10,7 +10,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "skills" / "seo" / "scripts"))
 
 import bing_webmaster as bing  # noqa: E402
 
@@ -231,7 +231,7 @@ def test_cli_invalid_url_errors_do_not_echo_userinfo_or_query(
 
 
 def test_removed_endpoints_are_absent_from_runtime_script():
-    source = (ROOT / "scripts" / "bing_webmaster.py").read_text(encoding="utf-8")
+    source = (ROOT / "skills" / "seo" / "scripts" / "bing_webmaster.py").read_text(encoding="utf-8")
     removed = "Get" + "LinkDetails"
     misused = "Get" + "UrlTrafficInfo"
     assert removed not in source

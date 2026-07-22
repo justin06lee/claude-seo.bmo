@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCRIPT = os.path.join(REPO, "scripts", "consistency_check.py")
+SCRIPT = os.path.join(REPO, "skills", "seo", "scripts", "consistency_check.py")
 
 
 def run_checker():

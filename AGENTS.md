@@ -25,7 +25,7 @@ descriptive comments) that other harnesses may ignore but do not reject.
 
 | Harness | How to load claude-seo |
 |---|---|
-| **Cursor** | Symlink or copy `skills/` and `agents/` into `.cursor/rules/`. Commands are invoked as text prompts; the harness reads `SKILL.md` body as system context. |
+| **Cursor** | Symlink or copy `skills/` (subagents live in `skills/seo/agents/`) into `.cursor/rules/`. Commands are invoked as text prompts; the harness reads `SKILL.md` body as system context. |
 | **Cursor Cloud Agents** | Push the repo; Cloud Agents read `AGENTS.md` automatically at session start. |
 | **Google Antigravity** | Point the workspace at this repo root; Antigravity reads `AGENTS.md` first, falls back to `skills/`. |
 | **Gemini CLI** | `gemini init` in this repo loads `AGENTS.md`. Skills are activated via `activate_skill <name>` in conversation. |
@@ -100,7 +100,7 @@ integration + 2 extension mirrors), and 53 Python execution scripts.
 ## Using with Cursor / Cursor Cloud
 
 Cursor reads this file automatically. All SKILL.md files contain the full
-analysis logic as natural language instructions. Python scripts in `scripts/`
+analysis logic as natural language instructions. Python scripts in `skills/seo/scripts/`
 provide execution capabilities.
 
 **Running scripts directly** (Cursor doesn't have MCP):
@@ -139,7 +139,13 @@ bash install.sh
 
 ```
 skills/                    # 25 sub-skills (auto-discovered)
-  seo/SKILL.md            # Main orchestrator + routing
+  seo/                    # Main orchestrator + the shared runtime it carries
+    SKILL.md              # Routing table and core rules
+    agents/               # 18 subagents (declared in .claude-plugin/plugin.json)
+    scripts/              # 53 Python scripts, including the managed runtime
+    bin/claude-seo        # Runtime launcher
+    schema/               # JSON-LD templates
+    requirements.txt      # Python dependencies
   seo-cluster/            # Semantic clustering (v1.9.0)
   seo-sxo/                # Search Experience Optimization (v1.9.0)
   seo-drift/              # SEO drift monitoring (v1.9.0)
@@ -164,9 +170,8 @@ skills/                    # 25 sub-skills (auto-discovered)
   seo-flow/               # FLOW framework integration
   seo-dataforseo/         # DataForSEO (extension)
   seo-image-gen/          # AI images (extension)
-agents/                    # 18 subagents
-scripts/                   # 53 Python scripts, including the managed runtime
-schema/                    # JSON-LD templates
+bin/claude-seo             # Plugin PATH shim -> skills/seo/bin/claude-seo
+hooks/                     # Quality-gate hooks (must sit at the plugin root)
 extensions/                # 8 MCP extensions: DataForSEO, Firecrawl, Banana, Ahrefs, SE Ranking, Profound, Bing Webmaster, Unlighthouse
 ```
 

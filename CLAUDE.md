@@ -24,9 +24,15 @@ claude-seo/
     plugin.json                    # Plugin manifest (v2.2.4)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 25 sub-skills (auto-discovered)
-    seo/                           # Main orchestrator skill
+    seo/                           # Main orchestrator skill + shared runtime
       SKILL.md                     # Entry point, routing table, core rules
       references/                  # On-demand knowledge files (13 files)
+      agents/                      # 18 subagents (declared in plugin.json)
+      scripts/                     # 53 Python execution scripts
+      bin/claude-seo               # Runtime launcher
+      schema/                      # Schema.org JSON-LD templates
+      pdf/ data/                   # Bundled reference + update data
+      requirements.txt             # Python dependencies
     seo-audit/SKILL.md            # Full site audit with parallel agents
     seo-page/SKILL.md            # Deep single-page analysis
     seo-technical/SKILL.md       # Technical SEO (9 categories)
@@ -64,7 +70,7 @@ claude-seo/
     seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
-  agents/                          # 18 subagents (auto-discovered)
+  skills/seo/agents/               # 18 subagents (declared in .claude-plugin/plugin.json)
     seo-technical.md             # Crawlability, indexability, security
     seo-content.md               # E-E-A-T, readability, thin content
     seo-schema.md                # Structured data validation
@@ -83,9 +89,9 @@ claude-seo/
     seo-drift.md                 # SEO drift monitoring
     seo-ecommerce.md             # E-commerce SEO analysis
     seo-flow.md                  # FLOW framework integration
-  hooks/                           # Quality gate hooks
+  hooks/                           # Quality gate hooks (plugin root: auto-discovered there)
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # 53 Python execution scripts
+  skills/seo/scripts/              # 53 Python execution scripts
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     backlinks_auth.py            # Backlink API credential management (Moz, Bing)
     moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
@@ -138,7 +144,7 @@ claude-seo/
     release_sign.py              # SHA-256 manifest generator for release signing
     verify_release.py            # Verify checkout integrity against a release manifest
     mobile_analysis.py           # Mobile rendering analysis (gitignored, dev-only)
-  schema/                          # Schema.org JSON-LD templates
+  skills/seo/schema/               # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
     dataforseo/                  # DataForSEO MCP install scripts
     firecrawl/                   # Firecrawl MCP install scripts

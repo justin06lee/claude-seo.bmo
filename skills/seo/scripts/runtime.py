@@ -61,24 +61,47 @@ def _configure_utf8() -> None:
 
 
 def _root() -> Path:
+    """Return the skill root: the directory holding scripts/, bin/, and requirements.txt.
+
+    This is the unit that gets installed. A plugin checkout nests it at
+    ``skills/seo`` inside the repository; a skill-folder install (bmo, or a
+    manual copy) makes it the installed directory itself.
+    """
     return Path(__file__).resolve().parent.parent
 
 
+def _plugin_root(root: Path) -> Path | None:
+    """Return the enclosing plugin/repository root, when the skill is nested in one.
+
+    Plugin metadata stays at the plugin root because Claude Code requires it
+    there, so the runtime has to look one level out to read its own version.
+    """
+    if root.parent.name == "skills":
+        return root.parent.parent
+    return None
+
+
 def _plugin_version(root: Path) -> str:
-    for manifest in (root / ".claude-plugin" / "plugin.json", root / "runtime-plugin.json"):
+    candidates = [root / ".claude-plugin" / "plugin.json", root / "runtime-plugin.json"]
+    metadata = [root / "pyproject.toml"]
+    enclosing = _plugin_root(root)
+    if enclosing is not None:
+        candidates.append(enclosing / ".claude-plugin" / "plugin.json")
+        metadata.append(enclosing / "pyproject.toml")
+    for manifest in candidates:
         try:
             value = json.loads(manifest.read_text(encoding="utf-8")).get("version")
             if isinstance(value, str):
                 return value
         except (OSError, ValueError):
             pass
-    metadata = root / "pyproject.toml"
-    try:
-        match = re.search(r'(?m)^version\s*=\s*"([^"]+)"', metadata.read_text(encoding="utf-8"))
-        if match:
-            return match.group(1)
-    except OSError:
-        pass
+    for path in metadata:
+        try:
+            match = re.search(r'(?m)^version\s*=\s*"([^"]+)"', path.read_text(encoding="utf-8"))
+            if match:
+                return match.group(1)
+        except OSError:
+            pass
     return "unknown"
 
 
@@ -93,7 +116,15 @@ def _requirements_hash(root: Path) -> str:
 def _is_plugin(root: Path) -> bool:
     if os.environ.get("CLAUDE_PLUGIN_DATA") or os.environ.get("CLAUDE_PLUGIN_ROOT"):
         return True
-    return (root / ".claude-plugin" / "plugin.json").is_file() and not (root / ".git").exists()
+    for candidate in (root, _plugin_root(root)):
+        if candidate is None:
+            continue
+        manifest = candidate / ".claude-plugin" / "plugin.json"
+        # A working checkout carries .git and is not an installed plugin, so it
+        # keeps using the in-tree environment rather than the shared plugin one.
+        if manifest.is_file() and not (candidate / ".git").exists():
+            return True
+    return False
 
 
 def _configured_data_dir(raw: str) -> Path:

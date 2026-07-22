@@ -23,7 +23,7 @@ jobs:
 
       - name: Check Python syntax
         run: |
-          mapfile -t PYFILES < <(git ls-files 'scripts/*.py')
+          mapfile -t PYFILES < <(git ls-files 'skills/seo/scripts/*.py')
           python3 -m py_compile "${PYFILES[@]}"
           echo "All ${#PYFILES[@]} scripts passed syntax check"
 
@@ -50,7 +50,7 @@ jobs:
         # tests added imports through url_safety -> requests. Installing from
         # requirements.txt matches the documented user install path and keeps
         # CI in sync with the runtime contract.
-        run: pip install -r requirements.txt pytest
+        run: pip install -r skills/seo/requirements.txt pytest
 
       - name: Run pytest
         run: pytest tests/ -v

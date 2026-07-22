@@ -17,7 +17,7 @@ import sys
 
 import pytest
 
-_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts")
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "skills", "seo", "scripts")
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
@@ -277,7 +277,7 @@ def test_faqpage_guidance_does_not_claim_unconfirmed_benefits() -> None:
     root = Path(__file__).resolve().parents[1]
     targets = [
         root / "hooks" / "validate-schema.py",
-        root / "pdf" / "google-seo-reference.md",
+        root / "skills" / "seo" / "pdf" / "google-seo-reference.md",
         root / "docs" / "TROUBLESHOOTING.md",
         root / "skills" / "seo-content-brief" / "references"
         / "page-type-templates.md",

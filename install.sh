@@ -50,35 +50,17 @@ main() {
         done
     fi
 
-    # Copy schema templates
-    if [ -d "${TEMP_DIR}/claude-seo/schema" ]; then
-        mkdir -p "${SKILL_DIR}/schema"
-        cp -r "${TEMP_DIR}/claude-seo/schema/"* "${SKILL_DIR}/schema/"
-    fi
-
-    # Copy reference docs
-    if [ -d "${TEMP_DIR}/claude-seo/pdf" ]; then
-        mkdir -p "${SKILL_DIR}/pdf"
-        cp -r "${TEMP_DIR}/claude-seo/pdf/"* "${SKILL_DIR}/pdf/"
-    fi
-
-    # Copy agents
-    echo "→ Installing subagents..."
-    cp -r "${TEMP_DIR}/claude-seo/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
-
-    # Copy shared scripts
-    if [ -d "${TEMP_DIR}/claude-seo/scripts" ]; then
-        mkdir -p "${SKILL_DIR}/scripts"
-        cp -r "${TEMP_DIR}/claude-seo/scripts/"* "${SKILL_DIR}/scripts/"
-    fi
-
-    # Copy the stable runtime launcher. Manual installs use its explicit path;
-    # plugin installs expose the repository bin/ directory automatically.
-    if [ -f "${TEMP_DIR}/claude-seo/bin/claude-seo" ]; then
-        mkdir -p "${SKILL_DIR}/bin"
-        cp "${TEMP_DIR}/claude-seo/bin/claude-seo" "${SKILL_DIR}/bin/claude-seo"
+    # scripts/, bin/, schema/, pdf/, data/, references/, and requirements.txt
+    # all live inside the seo skill, so the skill copy above already installed
+    # them. Only the launcher's executable bit needs restoring.
+    if [ -f "${SKILL_DIR}/bin/claude-seo" ]; then
         chmod +x "${SKILL_DIR}/bin/claude-seo"
     fi
+
+    # Copy subagents. Claude Code discovers them from its own agents directory,
+    # never from inside a skill, so they are copied out separately.
+    echo "→ Installing subagents..."
+    cp -r "${TEMP_DIR}/claude-seo/skills/seo/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
 
     # Copy hooks
     if [ -d "${TEMP_DIR}/claude-seo/hooks" ]; then
@@ -123,8 +105,8 @@ main() {
         done
     fi
 
-    # Copy requirements.txt to skill dir so users can retry later
-    cp "${TEMP_DIR}/claude-seo/requirements.txt" "${SKILL_DIR}/requirements.txt" 2>/dev/null || true
+    # Record the version for the runtime, which reads plugin metadata from the
+    # plugin root and cannot see it from a standalone skill install.
     cp "${TEMP_DIR}/claude-seo/.claude-plugin/plugin.json" "${SKILL_DIR}/runtime-plugin.json" 2>/dev/null || true
 
     # Manual installs cannot rely on plugin bin/ PATH injection. Rewrite only
@@ -165,7 +147,7 @@ main() {
             [ -f "${doc}" ] && rewrite_doc "${doc}"
         done < <(find "${source_root}" -type f -name '*.md' -print0)
     done
-    for source_doc in "${TEMP_DIR}/claude-seo/agents"/*.md "${TEMP_DIR}/claude-seo/extensions"/*/agents/*.md; do
+    for source_doc in "${TEMP_DIR}/claude-seo/skills/seo/agents"/*.md "${TEMP_DIR}/claude-seo/extensions"/*/agents/*.md; do
         [ -f "${source_doc}" ] || continue
         doc="${AGENT_DIR}/$(basename "${source_doc}")"
         [ -f "${doc}" ] && rewrite_doc "${doc}"

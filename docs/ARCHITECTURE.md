@@ -11,7 +11,7 @@ The plugin ships 25 sub-skills (21 core + 1 orchestrator + 1 framework integrati
 ```
 ~/.claude/plugins/.../claude-seo/
 ├── skills/
-│   ├── seo/                    # Main orchestrator
+│   ├── seo/                    # Main orchestrator + the shared runtime
 │   │   ├── SKILL.md
 │   │   └── references/         # On-demand reference files (13 files)
 │   │
@@ -40,7 +40,11 @@ The plugin ships 25 sub-skills (21 core + 1 orchestrator + 1 framework integrati
 │   ├── seo-dataforseo/         # DataForSEO MCP mirror (extension surface)
 │   └── seo-image-gen/          # Banana MCP mirror (extension surface)
 │
-└── agents/
+└── skills/seo/agents/          # Subagents ship inside the skill so a
+    │                           # skill-folder install carries them; the
+    │                           # plugin manifest lists each file, because
+    │                           # Claude Code's `agents` key takes paths and
+    │                           # replaces the default `agents/` scan.
     ├── seo-technical.md        # Crawlability, indexability, security
     ├── seo-content.md          # E-E-A-T, readability, thin content
     ├── seo-schema.md           # Structured data validation
@@ -210,7 +214,7 @@ User Request (e.g., /seo page)
 
 ### Adding a New Subagent
 
-1. Create `agents/seo-newagent.md`
+1. Create `skills/seo/agents/seo-newagent.md` and add it to `.claude-plugin/plugin.json`
 2. Add YAML frontmatter with name, description, tools
 3. Write agent instructions
 4. Reference from relevant skills

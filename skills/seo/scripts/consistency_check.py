@@ -8,19 +8,23 @@ reference-graph checks that no other tool covers:
    own dir -> shared ``skills/seo/references/`` -> any skill's references dir (cross-skill
    resolutions are reported as info, dead ones as errors).
 2. ``research/X.md`` path mentions exist.
-3. ``scripts/X.py`` mentions resolve PATH-AWARE: repo-root ``scripts/`` first, then the
-   enclosing extension's ``scripts/`` dir for files under ``extensions/<name>/``. A bare
+3. ``scripts/X.py`` mentions resolve PATH-AWARE: the core runtime at
+   ``skills/seo/scripts/`` first, then the
+   enclosing extension's ``scripts/`` dir for files under ``extensions/<name>/``. Prose
+   keeps the skill-relative ``scripts/X.py`` form because that is where the files sit
+   once the skill is installed. A bare
    basename existing somewhere else in the tree does NOT count (this exact bug hid dead
    ``scripts/presets.py`` invocations before the 2026-07 full review).
 4. Routing tables in ``skills/seo/SKILL.md`` and ``docs/COMMANDS.md`` agree with each
    other and with the skill directories on disk.
-5. ``agents/<name>.md`` path mentions exist (``seo-newagent`` doc example whitelisted).
+5. ``agents/<name>.md`` path mentions exist under ``skills/seo/agents/``
+   (``seo-newagent`` doc example whitelisted).
 6. ``skills/seo-flow/references/flow-prompts.lock`` SHA-256 integrity.
 7. Orphan-file candidates (tracked files whose basename is mentioned nowhere else);
    reported as warnings, never errors.
 
 Usage:
-    python3 scripts/consistency_check.py [--json] [--strict]
+    claude-seo run consistency_check.py [--json] [--strict]
 
 Exit codes: 0 = no errors (warnings allowed unless --strict), 1 = errors found.
 """
@@ -33,7 +37,24 @@ import re
 import subprocess
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def _repo_root() -> str:
+    """Locate the repository root from inside the seo skill.
+
+    The reference graph spans every skill, agent, and doc, so this gate needs
+    the repository root, not the skill root the runtime resolves.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    candidate = here
+    while True:
+        if os.path.isfile(os.path.join(candidate, ".claude-plugin", "plugin.json")):
+            return candidate
+        parent = os.path.dirname(candidate)
+        if parent == candidate:
+            return os.path.dirname(here)
+        candidate = parent
+
+
+REPO = _repo_root()
 
 ORPHAN_SCRIPT_WHITELIST = {
     "portability_check.py", "agent_ux_check.py", "gbp_deprecation_lint.py",
@@ -67,16 +88,22 @@ def extension_root(rel):
     return m.group(1) if m else None
 
 
+CORE_SKILL = "skills/seo"
+CORE_SCRIPTS = f"{CORE_SKILL}/scripts"
+CORE_AGENTS = f"{CORE_SKILL}/agents"
+SELF_DOC = {f"{CORE_SCRIPTS}/consistency_check.py", "tests/test_consistency_check.py"}
+
+
 def check_references(files, md):
     ref_pat = re.compile(r'references/([A-Za-z0-9_\-./]+\.(?:md|html|json|txt|ya?ml))')
     errors, infos = [], []
     carriers = [f for f in md if (f.startswith(("skills/", "extensions/")) and f.endswith("SKILL.md"))
-                or f.startswith("agents/")]
+                or f.startswith(f"{CORE_AGENTS}/")]
     for f in carriers:
         base = os.path.dirname(f)
         for m in sorted(set(ref_pat.findall(read(f)))):
             candidates = [os.path.join(base, "references", m),
-                          os.path.join("skills/seo/references", m)]
+                          os.path.join(f"{CORE_SKILL}/references", m)]
             if any(os.path.exists(os.path.join(REPO, c)) for c in candidates):
                 continue
             hits = (glob.glob(os.path.join(REPO, "skills", "*", "references", m))
@@ -87,9 +114,6 @@ def check_references(files, md):
             else:
                 errors.append(f"{f}: dead reference references/{m}")
     return errors, infos
-
-
-SELF_DOC = {"scripts/consistency_check.py", "tests/test_consistency_check.py"}
 
 
 def check_research_refs(files, texts):
@@ -121,7 +145,7 @@ def check_script_refs(files, texts):
         ext_root = extension_root(f)
         for m in sorted(set(pat.findall(read(f)))):
             mentioned.add(m)
-            candidates = [f"scripts/{m}"]
+            candidates = [f"{CORE_SCRIPTS}/{m}"]
             if ext_root:
                 candidates.insert(0, f"{ext_root}/scripts/{m}")
             if not any(c in files or os.path.isfile(os.path.join(REPO, c)) for c in candidates):
@@ -130,10 +154,10 @@ def check_script_refs(files, texts):
     orphans = []
     all_text = "\n".join(read(f) for f in texts)
     for s in sorted(os.path.basename(f) for f in files
-                    if f.startswith("scripts/") and f.endswith(".py")):
+                    if f.startswith(f"{CORE_SCRIPTS}/") and f.endswith(".py")):
         if s in ORPHAN_SCRIPT_WHITELIST:
             continue
-        others = all_text.count(s) - read(f"scripts/{s}").count(s)
+        others = all_text.count(s) - read(f"{CORE_SCRIPTS}/{s}").count(s)
         if others <= 0:
             orphans.append(f"scripts/{s}: referenced nowhere outside itself")
     return errors, orphans
@@ -171,7 +195,7 @@ def check_runtime_invocations(texts):
     errors = []
     carriers = [
         f for f in texts
-        if f.startswith(("skills/", "agents/", "extensions/")) and f.endswith(".md")
+        if f.startswith(("skills/", "extensions/")) and f.endswith(".md")
     ]
     bare = re.compile(
         r"\b(?:python3|python|py\s+-3)\s+[^\n`]*?scripts/[A-Za-z0-9_./-]+\.py"
@@ -182,7 +206,7 @@ def check_runtime_invocations(texts):
         for match in bare.finditer(content):
             errors.append(f"{f}: bare bundled-script invocation: {match.group(0)}")
         for script in sorted(set(runtime.findall(content))):
-            if not os.path.isfile(os.path.join(REPO, "scripts", script)) and not any(
+            if not os.path.isfile(os.path.join(REPO, CORE_SCRIPTS, script)) and not any(
                 os.path.isfile(path)
                 for path in glob.glob(os.path.join(REPO, "extensions", "*", "scripts", script))
             ):
@@ -212,11 +236,12 @@ def check_routing(files):
 
 def check_agent_refs(files, texts):
     agents = {os.path.basename(f)[:-3] for f in files
-              if f.startswith("agents/") and f.endswith(".md")}
+              if f.startswith((f"{CORE_AGENTS}/", "extensions/")) and "/agents/" in f
+              and f.endswith(".md")}
     pat = re.compile(r'agents/([a-z0-9-]+)\.md')
     errors = []
     for f in texts:
-        if f.startswith("agents/"):
+        if "/agents/" in f:
             continue
         for m in sorted(set(pat.findall(read(f)))):
             if m not in agents and m not in DOC_EXAMPLE_AGENTS:

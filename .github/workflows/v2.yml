@@ -54,7 +54,7 @@ jobs:
       - name: Install runtime + test deps
         run: |
           pip install pytest
-          pip install -r requirements.txt
+          pip install -r skills/seo/requirements.txt
 
       - name: Run url_safety regression battery
         run: pytest tests/test_url_safety.py -v
@@ -86,7 +86,7 @@ jobs:
       - name: Install pytest + test deps
         run: |
           pip install pytest beautifulsoup4
-          pip install -r requirements.txt || true
+          pip install -r skills/seo/requirements.txt || true
 
       - name: Run pytest
         run: pytest tests/ -v

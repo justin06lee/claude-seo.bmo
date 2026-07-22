@@ -38,7 +38,7 @@ def test_audit_agents_use_renderer_or_capture_script() -> None:
         "seo-schema.md": "render_page.py",
     }
     for filename, marker in expectations.items():
-        text = (REPO_ROOT / "agents" / filename).read_text(encoding="utf-8")
+        text = (REPO_ROOT / "skills" / "seo" / "agents" / filename).read_text(encoding="utf-8")
         assert marker in text, f"{filename} must mention {marker}"
 
 
@@ -60,7 +60,7 @@ def test_audit_agents_document_output_dir_findings_contract() -> None:
         "seo-drift.md",
         "seo-ecommerce.md",
     ):
-        text = (REPO_ROOT / "agents" / filename).read_text(encoding="utf-8")
+        text = (REPO_ROOT / "skills" / "seo" / "agents" / filename).read_text(encoding="utf-8")
         assert "output_dir" in text
         assert "findings/" in text
 

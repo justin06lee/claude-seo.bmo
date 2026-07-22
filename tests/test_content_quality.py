@@ -20,7 +20,7 @@ from pathlib import Path
 
 import pytest
 
-_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts")
+_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "skills", "seo", "scripts")
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
@@ -215,7 +215,7 @@ def test_verify_empty_text_returns_zero_claims() -> None:
 
 
 def test_seo_updates_data_file_is_valid_json() -> None:
-    data_path = Path(__file__).resolve().parents[1] / "data" / "google-updates.json"
+    data_path = Path(__file__).resolve().parents[1] / "skills" / "seo" / "data" / "google-updates.json"
     assert data_path.is_file()
     with data_path.open() as fh:
         data = json.load(fh)
@@ -227,7 +227,7 @@ def test_seo_updates_data_file_is_valid_json() -> None:
 def test_seo_updates_every_entry_has_google_owned_source() -> None:
     """Policy: every entry must cite a Google-owned URL. Third-party-only
     claims belong in unverified[]."""
-    data_path = Path(__file__).resolve().parents[1] / "data" / "google-updates.json"
+    data_path = Path(__file__).resolve().parents[1] / "skills" / "seo" / "data" / "google-updates.json"
     with data_path.open() as fh:
         data = json.load(fh)
     google_hosts = (
@@ -248,7 +248,7 @@ def test_seo_updates_every_entry_has_google_owned_source() -> None:
 
 def test_seo_updates_unverified_entries_call_out_status() -> None:
     """Unverified entries must include a primary_source_check pointer."""
-    data_path = Path(__file__).resolve().parents[1] / "data" / "google-updates.json"
+    data_path = Path(__file__).resolve().parents[1] / "skills" / "seo" / "data" / "google-updates.json"
     with data_path.open() as fh:
         data = json.load(fh)
     for entry in data.get("unverified", []):

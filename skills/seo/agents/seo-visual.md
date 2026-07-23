@@ -31,7 +31,14 @@ Use the screenshot script (`scripts/capture_screenshot.py` in the plugin root) f
 ```bash
 claude-seo run capture_screenshot.py URL --all --output screenshots/
 claude-seo run render_page.py URL --mode auto --a11y-tree --json
+# For below-the-fold or interaction-gated content, settle harder and reveal panels:
+claude-seo run render_page.py URL --mode always --settle network --reveal-hidden --json
 ```
+
+When the raw-HTML subagents and this one disagree on whether content exists, the
+render likely stopped before the content hydrated: re-run with `--settle network`
+(bounded network-idle wait) and `--reveal-hidden` (expands `<details>` and
+tab/accordion controls, without following links or submitting forms).
 
 ## Viewports to Test
 

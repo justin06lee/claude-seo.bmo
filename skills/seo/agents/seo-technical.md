@@ -55,7 +55,7 @@ Provide a structured report with:
 
 ## Fetching pages (v2.0.0)
 
-Use `claude-seo run render_page.py <URL> --mode auto --json` for page HTML. `auto` does a raw fetch and only spins up Playwright when an SPA shell is detected; use `--mode always` to force a render or `--mode never` to skip Playwright entirely. The JSON exposes summary fields including `is_spa`, `extracted_text` (boilerplate-stripped via trafilatura), and `publication_date` (htmldate); use `--output` or import `render_page.render_page()` when full raw/rendered HTML is required. SSRF and DNS-rebinding protection live in `scripts/url_safety.py`, never call `requests.get` directly on user-supplied URLs.
+Use `claude-seo run render_page.py <URL> --mode auto --json` for page HTML. `auto` does a raw fetch and only spins up Playwright when an SPA shell is detected; use `--mode always` to force a render or `--mode never` to skip Playwright entirely. When rendering, the page is scrolled by default (`--settle scroll`) so scroll-triggered and lazy-loaded content hydrates before capture; add `--settle network` for a bounded network-idle wait on race-prone widgets, or `--reveal-hidden` to expand `<details>`/tab/accordion content (never follows links or submits forms). The JSON exposes summary fields including `is_spa`, `settle_strategy`, `scroll_passes`, `revealed_elements`, `extracted_text` (boilerplate-stripped via trafilatura), and `publication_date` (htmldate); use `--output` or import `render_page.render_page()` when full raw/rendered HTML is required. SSRF and DNS-rebinding protection live in `scripts/url_safety.py`, never call `requests.get` directly on user-supplied URLs.
 
 ## Persistence Contract
 

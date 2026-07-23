@@ -25,6 +25,23 @@ Modes
 - ``always`` : always render with Playwright, even for static HTML.
 - ``never``  : raw HTML only. Equivalent to legacy ``fetch_page.py``.
 
+Settle strategies (rendered modes)
+==================================
+A DOMContentLoaded snapshot only sees what mounts at the initial scroll
+position, so content that hydrates on scroll or after interaction is missed.
+``--settle`` controls how far the renderer goes to reach a fully-hydrated DOM:
+
+- ``dom``     : poll DOM stability at the top of the page. Fastest; the old
+                behaviour.
+- ``scroll``  : scroll the page to fire IntersectionObserver and scroll-bound
+                hydration, then return to the top and stabilize. Default.
+- ``network`` : ``scroll`` plus a bounded network-idle wait, to catch
+                post-scroll fetches and racy third-party widget mounts.
+
+``reveal_hidden`` (opt-in) additionally expands ``<details>`` and
+``aria-expanded`` tab/accordion controls so content behind them is audited. It
+never clicks links or form submits, so it cannot navigate away or mutate state.
+
 Result shape
 ============
 A dict with::
@@ -41,6 +58,9 @@ A dict with::
     console_errors    list of browser console error strings
     render_diagnostics list of non-fatal render degradation messages
     render_engine     'playwright-chromium' or None
+    settle_strategy   the settle strategy used ('dom'/'scroll'/'network') or None
+    scroll_passes     number of scroll passes performed during settle
+    revealed_elements collapsed elements expanded when reveal_hidden is on
     render_ms         elapsed wall-clock for the render step
     mode_used         'rendered' or 'raw'
     error             str or None
@@ -305,6 +325,142 @@ def _wait_for_dom_stability(page, timeout_ms: int) -> bool:  # type: ignore[no-u
     return False
 
 
+# Settle strategies, cheapest to most thorough. See _settle_page.
+SETTLE_STRATEGIES = ("dom", "scroll", "network")
+
+_SCROLL_MAX_PASSES = 20
+_SCROLL_STEP_PAUSE_MS = 200
+_REVEAL_MAX_ELEMENTS = 40
+
+
+def _scroll_through_page(page, timeout_ms: int) -> int:  # type: ignore[no-untyped-def]
+    """Scroll top-to-bottom to trigger scroll-bound and IntersectionObserver hydration.
+
+    A DOMContentLoaded snapshot only sees what mounts at the initial scroll
+    position, so lazy content below the fold never renders. This walks the page
+    a viewport at a time, pausing for observers to fire, then returns to the top
+    so above-the-fold analysis and screenshots see the real header.
+
+    Bounded three ways so an infinite-scroll feed cannot loop forever: a pass
+    cap, the navigation timeout budget, and an early exit once the scroll height
+    stops growing. Returns the number of passes performed.
+    """
+    budget_ms = max(500, min(timeout_ms, 8000))
+    elapsed_ms = 0
+    passes = 0
+    last_height = -1
+    try:
+        viewport_h = page.evaluate("() => window.innerHeight") or 800
+    except Exception:
+        return 0
+    while passes < _SCROLL_MAX_PASSES and elapsed_ms < budget_ms:
+        try:
+            height = page.evaluate("() => document.body ? document.body.scrollHeight : 0")
+            position = page.evaluate("() => window.scrollY + window.innerHeight")
+        except Exception:
+            break
+        # Stop once we've reached the bottom and it isn't growing (no more
+        # infinite-scroll content is loading).
+        if position >= height and height == last_height:
+            break
+        last_height = height
+        try:
+            page.evaluate("(step) => window.scrollBy(0, step)", viewport_h)
+        except Exception:
+            break
+        page.wait_for_timeout(_SCROLL_STEP_PAUSE_MS)
+        elapsed_ms += _SCROLL_STEP_PAUSE_MS
+        passes += 1
+    # Return to the top; later steps capture the header and above-fold state.
+    try:
+        page.evaluate("() => window.scrollTo(0, 0)")
+    except Exception:
+        pass
+    return passes
+
+
+def _reveal_hidden_content(page) -> int:  # type: ignore[no-untyped-def]
+    """Expand collapsed content that hides text behind a click, without side effects.
+
+    Opens ``<details>`` and toggles ``aria-expanded="false"`` tab/accordion
+    controls so content behind them enters the DOM and can be audited. It never
+    touches links, form submits, or reset buttons, so it cannot navigate away or
+    mutate server state. Bounded to a fixed number of reveals. Returns the count
+    actually expanded.
+
+    The whole operation runs in one page.evaluate so a mid-list DOM change
+    cannot desynchronize a Python-side element handle.
+    """
+    script = """
+    (max) => {
+      let opened = 0;
+      // <details> elements: opening them is inherently side-effect-free.
+      for (const d of document.querySelectorAll('details:not([open])')) {
+        if (opened >= max) break;
+        d.open = true;
+        opened++;
+      }
+      // aria-expanded toggles that are NOT links or form-submitting controls.
+      const toggles = document.querySelectorAll('[aria-expanded="false"]');
+      for (const el of toggles) {
+        if (opened >= max) break;
+        const tag = el.tagName.toLowerCase();
+        if (tag === 'a') continue;                       // never follow links
+        const type = (el.getAttribute('type') || '').toLowerCase();
+        if (tag === 'button' && (type === 'submit' || type === 'reset')) continue;
+        if (el.closest('form') && tag !== 'button') continue;  // avoid form side effects
+        try { el.click(); opened++; } catch (e) { /* ignore */ }
+      }
+      return opened;
+    }
+    """
+    try:
+        return int(page.evaluate(script, _REVEAL_MAX_ELEMENTS))
+    except Exception:
+        return 0
+
+
+def _settle_page(page, strategy: str, timeout_ms: int, reveal_hidden: bool):  # type: ignore[no-untyped-def]
+    """Bring a rendered page to a stable, fully-hydrated state.
+
+    Orchestrates, cheapest first: optional scroll pass (scroll/network), optional
+    hidden-content reveal, optional network-idle wait (network), and always the
+    DOM-stability poll. Returns (diagnostics, info) where info carries the scroll
+    pass count and reveal count for the caller to surface.
+    """
+    diagnostics: list[str] = []
+    info = {"scroll_passes": 0, "revealed_elements": 0}
+
+    if strategy in ("scroll", "network"):
+        info["scroll_passes"] = _scroll_through_page(page, timeout_ms)
+        if info["scroll_passes"]:
+            diagnostics.append(
+                f"scrolled {info['scroll_passes']} pass(es) to trigger lazy hydration"
+            )
+
+    if reveal_hidden:
+        info["revealed_elements"] = _reveal_hidden_content(page)
+        if info["revealed_elements"]:
+            diagnostics.append(
+                f"revealed {info['revealed_elements']} collapsed element(s)"
+            )
+
+    if strategy == "network":
+        try:
+            # Bounded: persistent connections (analytics, sockets) would never
+            # idle, so a timeout here is expected and non-fatal.
+            page.wait_for_load_state("networkidle", timeout=min(timeout_ms, 5000))
+        except Exception:
+            diagnostics.append("network did not reach idle; captured the available DOM")
+
+    if not _wait_for_dom_stability(page, timeout_ms):
+        diagnostics.append(
+            "DOM did not reach the bounded stability threshold; "
+            "captured the available DOM"
+        )
+    return diagnostics, info
+
+
 def render_page(
     url: str,
     *,
@@ -315,6 +471,8 @@ def render_page(
     extract_content: bool = True,
     extract_accessibility: bool = False,
     user_agent: Optional[str] = None,
+    settle: str = "scroll",
+    reveal_hidden: bool = False,
 ) -> dict:
     """Render or fetch ``url`` per the chosen mode. See module docstring.
 
@@ -340,11 +498,17 @@ def render_page(
         "render_engine": None,
         "render_ms": None,
         "mode_used": None,
+        "settle_strategy": None,
+        "scroll_passes": 0,
+        "revealed_elements": 0,
         "error": None,
     }
 
     if mode not in ("auto", "always", "never"):
         result["error"] = f"Invalid mode: {mode!r}"
+        return result
+    if settle not in SETTLE_STRATEGIES:
+        result["error"] = f"Invalid settle strategy: {settle!r}"
         return result
     if viewport not in VIEWPORTS:
         result["error"] = f"Invalid viewport: {viewport!r}"
@@ -424,11 +588,13 @@ def render_page(
                         f"DOMContentLoaded timed out after {timeout_ms}ms; "
                         "captured the available DOM"
                     )
-                if not _wait_for_dom_stability(page, timeout_ms):
-                    result["render_diagnostics"].append(
-                        "DOM did not reach the bounded stability threshold; "
-                        "captured the available DOM"
-                    )
+                result["settle_strategy"] = settle
+                settle_diagnostics, settle_info = _settle_page(
+                    page, settle, timeout_ms, reveal_hidden
+                )
+                result["render_diagnostics"].extend(settle_diagnostics)
+                result["scroll_passes"] = settle_info["scroll_passes"]
+                result["revealed_elements"] = settle_info["revealed_elements"]
 
                 result["url"] = page.url
                 result["content"] = page.content()
@@ -515,6 +681,20 @@ def _cli() -> None:
         help="capture Playwright accessibility-tree snapshot (forces render)",
     )
     parser.add_argument(
+        "--settle",
+        choices=SETTLE_STRATEGIES,
+        default="scroll",
+        help="post-load hydration strategy: dom (poll only, fastest); "
+             "scroll (scroll to trigger lazy content, default); "
+             "network (scroll + network-idle wait, most thorough)",
+    )
+    parser.add_argument(
+        "--reveal-hidden",
+        action="store_true",
+        help="expand <details> and aria-expanded tab/accordion controls to "
+             "audit content behind them (side-effect-safe: no links or submits)",
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="emit a JSON summary (truncates content fields)",
@@ -538,6 +718,8 @@ def _cli() -> None:
         block_resources=args.block or None,
         extract_content=not args.no_extract,
         extract_accessibility=args.a11y_tree,
+        settle=args.settle,
+        reveal_hidden=args.reveal_hidden,
     )
 
     full_content = res.get("content") or res.get("raw_content") or ""
@@ -583,7 +765,9 @@ def _cli() -> None:
     )
     if res["render_ms"]:
         print(
-            f"Render: {res['render_ms']:.0f}ms via {res['render_engine']}",
+            f"Render: {res['render_ms']:.0f}ms via {res['render_engine']} | "
+            f"settle={res['settle_strategy']} scrolls={res['scroll_passes']} "
+            f"revealed={res['revealed_elements']}",
             file=sys.stderr,
         )
     if res["publication_date"]:

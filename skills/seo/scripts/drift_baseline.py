@@ -32,7 +32,20 @@ sys.path.insert(0, SCRIPTS_DIR)
 
 from google_auth import validate_url  # noqa: E402
 
-DB_DIR = os.path.expanduser("~/.cache/claude-seo/drift")
+def _db_dir() -> str:
+    """Resolve the drift baseline directory.
+
+    Defaults to a user cache path. CLAUDE_SEO_DRIFT_DIR overrides it so a CI
+    job can point the store at a checked-in or cache-restored directory, which
+    is what makes scheduled comparisons reproducible across runners.
+    """
+    override = os.environ.get("CLAUDE_SEO_DRIFT_DIR")
+    if override:
+        return os.path.abspath(os.path.expanduser(override))
+    return os.path.expanduser("~/.cache/claude-seo/drift")
+
+
+DB_DIR = _db_dir()
 DB_PATH = os.path.join(DB_DIR, "baselines.db")
 
 # UTM parameters to strip during URL normalization

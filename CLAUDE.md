@@ -116,6 +116,7 @@ claude-seo/
     drift_compare.py             # SEO drift comparison engine (17 rules)
     drift_report.py              # SEO drift HTML report generator
     drift_history.py             # SEO drift history query
+    drift_ci.py                  # Non-interactive multi-URL drift runner for schedules/CI
     dataforseo_costs.py          # DataForSEO cost estimation and budget tracking
     dataforseo_merchant.py       # Google Shopping / Amazon data fetching
     dataforseo_normalize.py      # DataForSEO response normalization utility
@@ -176,7 +177,7 @@ claude-seo/
 | `/seo backlinks <url>` | Backlink profile analysis |
 | `/seo cluster <seed>` | SERP-based semantic clustering |
 | `/seo sxo <url>` | Search Experience Optimization |
-| `/seo drift baseline\|compare\|history <url>` | SEO drift monitoring |
+| `/seo drift baseline\|compare\|history\|ci <url>` | SEO drift monitoring (+ CI/scheduled runner) |
 | `/seo ecommerce <url>` | E-commerce SEO |
 | `/seo hreflang [url]` | Hreflang and international SEO |
 | `/seo plan <type>` | Strategic planning by industry |

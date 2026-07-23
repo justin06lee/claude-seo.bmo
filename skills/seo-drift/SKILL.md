@@ -7,7 +7,7 @@ description: >
   "did anything break", "SEO regression", "compare SEO", "before and after",
   "monitor SEO changes", or "deployment check".
 user-invocable: true
-argument-hint: "baseline|compare|history <url>"
+argument-hint: "baseline|compare|history|ci <url>"
 license: MIT
 metadata:
   author: AgriciDaniel
@@ -29,6 +29,7 @@ Git for your SEO. Capture baselines, detect regressions, track changes over time
 | `/seo drift baseline <url>` | Capture current SEO state as a "known good" snapshot |
 | `/seo drift compare <url>` | Compare current page state to stored baseline |
 | `/seo drift history <url>` | Show change history and past comparisons |
+| `/seo drift ci` | Non-interactive runner for schedules and CI: watch many URLs, exit non-zero on regression |
 
 ---
 
@@ -154,6 +155,56 @@ claude-seo run drift_history.py <url> --limit 10
 
 ---
 
+## Command: `ci`
+
+Runs baseline/compare across many URLs without a human in the loop, aggregates
+the findings, and exits non-zero when a severity threshold is breached, so a
+cron job or CI pipeline fails on SEO regression the way it fails on a broken
+test.
+
+**Execution:**
+```bash
+# Compare a list of URLs; exit 1 if any has a CRITICAL finding
+claude-seo run drift_ci.py check --config urls.json
+
+# Watch two URLs, fail on WARNING or worse, skip CWV (no Google API needed)
+claude-seo run drift_ci.py check --url https://a.com --url https://b.com \
+  --fail-on warning --skip-cwv
+
+# (Re)seed baselines for the whole list
+claude-seo run drift_ci.py baseline --config urls.json
+
+# Emit a JUnit report for a CI system to display
+claude-seo run drift_ci.py check --config urls.json --junit drift.xml
+```
+
+**URL sources:** `--url` (repeatable) and/or `--config FILE`. The config is
+JSON (`{"urls": [...]}` or a bare list) or a newline-delimited text file with
+`#` comments; `--config -` reads stdin.
+
+**Key flags:**
+
+| Flag | Effect |
+|------|--------|
+| `--fail-on none\|any\|info\|warning\|critical` | Lowest severity that fails the run (default `critical`) |
+| `--on-missing baseline\|skip\|fail` | What to do when a URL has no baseline yet (default `baseline`: seed it and report no drift this run) |
+| `--skip-cwv` | Skip Core Web Vitals so no Google API credentials are needed |
+| `--output FILE` | Write the aggregate JSON report (default stdout) |
+| `--junit FILE` | Also write a JUnit XML report |
+| `--quiet` | Suppress the human-readable stderr summary |
+
+**Exit codes:** `0` clean, `1` regression (a URL breached `--fail-on`), `2`
+operational error (bad config, unreachable page, or a missing baseline under
+`--on-missing fail`). An operational error outranks a regression: fix the run
+before trusting its findings.
+
+**Reproducible baselines across runners:** set `CLAUDE_SEO_DRIFT_DIR` to a
+checked-in or cache-restored directory so every CI run compares against the
+same stored state. See `references/ci-integration.md` for a ready-to-use
+GitHub Actions workflow.
+
+---
+
 ## Cross-Skill Integration
 
 When drift is detected, recommend the appropriate specialized skill:
@@ -217,3 +268,12 @@ When drift is detected, recommend the appropriate specialized skill:
 /seo drift compare https://example.com      # What changed?
 /seo drift history https://example.com      # When did it change?
 ```
+
+### Scheduled / CI Monitoring
+```
+# In CI or cron, gate on regression across a list of URLs:
+claude-seo run drift_ci.py check --config urls.json --fail-on critical --skip-cwv
+```
+Exits non-zero when a page regresses, so the pipeline fails like a broken test.
+See `references/ci-integration.md` for a ready-to-use GitHub Actions workflow
+and the committed-baseline variant.

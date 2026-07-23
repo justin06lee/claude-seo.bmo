@@ -401,7 +401,7 @@ Search Experience Optimization: SERP backwards analysis, page-type mismatch dete
 
 ---
 
-### `/seo drift baseline|compare|history <url>`
+### `/seo drift baseline|compare|history|ci <url>`
 
 SEO drift monitoring. Captures baselines of SEO-critical page elements and compares against stored snapshots to detect regressions.
 
@@ -411,6 +411,12 @@ SEO drift monitoring. Captures baselines of SEO-critical page elements and compa
 /seo drift compare https://example.com
 /seo drift history https://example.com
 ```
+
+**Scheduled / CI mode:** `claude-seo run drift_ci.py check --config urls.json --fail-on critical`
+watches many URLs non-interactively and exits non-zero on regression, so a cron
+job or CI pipeline fails on SEO drift like it fails on a broken test. Set
+`CLAUDE_SEO_DRIFT_DIR` to a persisted directory for reproducible baselines
+across runners. See the seo-drift skill's `references/ci-integration.md`.
 
 **What it tracks:** title, meta description, canonical, hreflang, Open Graph, schema, headings, internal links, robots, sitemap entry, indexability, Core Web Vitals, response status, redirect chain.
 
@@ -706,7 +712,7 @@ Multi-page Lighthouse audit via Unlighthouse (extension, MIT, no API quota). **P
 | `/seo backlinks <url>` | Backlink profile analysis |
 | `/seo cluster <seed>` | SERP-based semantic clustering |
 | `/seo sxo <url>` | Search Experience Optimization |
-| `/seo drift baseline\|compare\|history <url>` | SEO drift monitoring |
+| `/seo drift baseline\|compare\|history\|ci <url>` | SEO drift monitoring (+ CI/scheduled runner) |
 | `/seo ecommerce <url>` | E-commerce SEO |
 | `/seo hreflang [url]` | Hreflang and international SEO |
 | `/seo plan <type>` | Strategic planning by industry |

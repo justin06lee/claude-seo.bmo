@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-07-22
+
+Feature release: an autonomous full-project SEO autopilot. Full suite: 480 passing tests.
+
+### Added
+
+- **`/seo everything [path]`** — a new `seo-everything` skill that takes a codebase from wherever
+  it is to as SEO-complete as the project allows, with no per-skill decisions from the user. It
+  perceives the project with a deterministic scanner (`seo_inventory.py`: framework + router,
+  routes, existing SEO surface, business type), decides which disciplines apply, fans out
+  read-only specialists in parallel, then applies every relevant fix to the source on a
+  `feat/seo-pass` branch — idempotently, idiomatically for the framework, without breaking the
+  build — and leaves one diff to review. Three references cover per-framework SEO placement,
+  the signal-to-discipline relevance matrix, and apply safety (git isolation, never fabricate a
+  fact, never touch secrets or build output, honor the Google-currency guardrails).
+- `seo_inventory.py`: a stdlib-only, read-only codebase SEO scanner, covered by 16 tests.
+
 ## [2.4.0] - 2026-07-22
 
 Feature release: scheduled/CI drift monitoring, a cross-site portfolio dashboard, and a

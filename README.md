@@ -11,7 +11,18 @@
 [![Tests](https://img.shields.io/badge/tests-480%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
-> **This is a fork.** [`justin06lee/claude-seo.bmo`](https://github.com/justin06lee/claude-seo.bmo) is a distribution of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) by [Daniel Agrici](https://github.com/AgriciDaniel), MIT licensed, with all upstream authorship and contributor credit intact. It packages the project so the `seo` skill carries its own runtime, which makes it installable a folder at a time — see [Installation](#installation). Upstream remains the place to follow the project itself.
+> **⚔️ Valhalla — one command, everything.** This fork adds a single front-door skill. Install it and use `/valhalla`:
+>
+> ```bash
+> bmo add justin06lee/claude-seo.bmo   # installs one skill: valhalla
+> ```
+> ```
+> /valhalla audit this codebase and fix all the SEO
+> ```
+>
+> No sub-commands, no per-skill decisions. Valhalla perceives your project, decides which of the 26 SEO disciplines apply, fans out specialists in parallel, and applies every relevant fix to the source on a `feat/seo-pass` branch — then hands you one diff to merge or revert. The full toolkit below is what it drives internally; you never have to touch it directly.
+
+> **This is a fork.** [`justin06lee/claude-seo.bmo`](https://github.com/justin06lee/claude-seo.bmo) is a distribution of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) by [Daniel Agrici](https://github.com/AgriciDaniel), MIT licensed, with all upstream authorship and contributor credit intact. It adds the `valhalla` one-command autopilot and packages the project so each skill carries its own runtime. Upstream remains the place to follow the project itself.
 
 ### Why Claude SEO
 
@@ -68,25 +79,38 @@ Run a full audit and watch parallel agents fan out across the site:
 
 ## Installation
 
-> ℹ️ **Three ways to install.** `bmo` copies the skills directly, the plugin
-> system manages them for you, and the shell installers copy files into
-> `~/.claude/`. All three install the same release from
-> [`justin06lee/claude-seo.bmo`](https://github.com/justin06lee/claude-seo.bmo).
+### Valhalla — the one-command install (recommended)
 
-### bmo Install (skills only, no plugin system)
-
-[bmo](https://github.com/justin06lee/bmo) copies skills straight into Claude
-Code's skills directory. One command installs all 25 skills and the 18
-subagents they ship:
+[bmo](https://github.com/justin06lee/bmo) copies the skill straight into Claude
+Code. The bare repo installs a single skill, `valhalla`:
 
 ```bash
-bmo add justin06lee/claude-seo.bmo/skills --all
+bmo add justin06lee/claude-seo.bmo
+```
+
+Then just use it:
+
+```
+/valhalla audit this codebase and fix all the SEO
+```
+
+That's the whole interface. The 26 discipline skills, their references, and the
+runtime ship *inside* the `valhalla` skill as the knowledge it drives — you never
+invoke them directly. Run `/valhalla setup` once to build the isolated Python
+runtime (needed for the heavier scripts; the codebase-apply flow itself leans on
+a stdlib scanner plus reading and editing your source).
+
+### Advanced: install the discipline skills individually
+
+If you want the granular `/seo audit`, `/seo schema`, `/seo drift`, … commands
+instead of (or alongside) the Valhalla front door, install the skills directory:
+
+```bash
+bmo add justin06lee/claude-seo.bmo/skills --all   # all 26 skills + 18 subagents
 /seo setup
 ```
 
-The `seo` skill carries its own Python runtime, so it works standalone; the
-other 24 route through it. Subagents land in `~/.claude/agents/` and are
-removed again by `bmo remove`.
+The `seo` skill carries its own Python runtime; the others route through it.
 
 ### Plugin Install (Claude Code 1.0.33+)
 
@@ -94,7 +118,7 @@ One-time marketplace add, then plugin install:
 
 ```bash
 /plugin marketplace add justin06lee/claude-seo.bmo
-/plugin install claude-seo@justin06lee-claude-seo
+/plugin install valhalla@justin06lee-valhalla
 /seo setup
 ```
 

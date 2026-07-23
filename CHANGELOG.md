@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-07-22
+
+Valhalla release. Adds a single-command front door and renames the plugin identity.
+Full suite: 480 passing tests.
+
+### Added
+
+- **Valhalla** — a root `SKILL.md` (`name: valhalla`) that is the one-command entry point.
+  `bmo add justin06lee/claude-seo.bmo` (bare, no subpath) now installs a single `valhalla`
+  skill: the whole toolkit ships as knowledge Valhalla drives internally, so the user gets
+  exactly one command, `/valhalla`, which runs the full autonomous SEO pass over a codebase.
+  A `.bmoignore` keeps that single-skill install lean.
+
+### Changed
+
+- **BREAKING: plugin identity renamed to `valhalla`.** `plugin.json` name and the marketplace
+  slug are now `valhalla` / `justin06lee-valhalla`; plugin install is
+  `/plugin install valhalla@justin06lee-valhalla`. The discipline skills are unchanged and,
+  via a plugin or `…/skills --all` install, still register individually (`/seo audit`, etc.).
+- README leads with the Valhalla one-command install; the granular skills are documented as
+  the advanced path.
+
+### Notes
+
+- Two install shapes coexist from one tree: bare `bmo add` → single `valhalla` skill; plugin
+  or `…/skills --all` → the 26 discipline skills registered individually. The plugin loader
+  ignores the root `SKILL.md` because a `skills/` directory is present.
+
 ## [2.5.0] - 2026-07-22
 
 Feature release: an autonomous full-project SEO autopilot. Full suite: 480 passing tests.

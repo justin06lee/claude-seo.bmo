@@ -13,17 +13,39 @@ local SEO (GBP, citations, reviews, map pack), maps intelligence, semantic topic
 clustering, search experience optimization (SXO), SEO drift monitoring, e-commerce
 SEO, and international SEO with cultural adaptation profiles.
 
+### Valhalla: the single-command front door
+
+A root `SKILL.md` (`name: valhalla`) is the one-command entry point. Because a
+root `SKILL.md` makes the whole repository install as **one** skill, two install
+shapes exist from the same tree:
+
+- **`bmo add justin06lee/claude-seo.bmo`** (bare) installs a single `valhalla`
+  skill: the whole repo, minus the `.bmoignore`d dev trees, lands under
+  `~/.claude/skills/valhalla/`. The 26 discipline skills come along as nested
+  *knowledge* Valhalla loads on demand — they are **not** registered as separate
+  `/seo …` commands. The user gets exactly one command, `/valhalla`, which runs
+  the full autopilot (it delegates to `skills/seo-everything/`).
+- **`bmo add …/skills --all`** or a **plugin install** registers the 26
+  discipline skills individually (`/seo audit`, `/seo schema`, …). The plugin
+  loader ignores the root `SKILL.md` because a `skills/` directory is present.
+
+Keep both working: the root `SKILL.md` is a thin director that reads the internal
+skills; the discipline skills remain independently usable. When editing routing
+or counts, update both the root front door and the `seo` orchestrator.
+
 ## Architecture
 
 ```
 claude-seo/
+  SKILL.md                           # Valhalla: root single-skill front door (/valhalla)
+  .bmoignore                         # Keeps a bmo single-skill install lean
   CLAUDE.md                          # Project instructions (this file)
   CONTRIBUTORS.md                    # Community credits (Pro Hub Challenge)
   AGENTS.md                          # Multi-platform agent instructions (Cursor, Antigravity)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v2.2.4)
+    plugin.json                    # Plugin manifest (name: valhalla, v3.0.0)
     marketplace.json               # Marketplace catalog for distribution
-  skills/                            # 26 sub-skills (auto-discovered)
+  skills/                            # 26 sub-skills (auto-discovered; Valhalla drives these internally)
     seo/                           # Main orchestrator skill + shared runtime
       SKILL.md                     # Entry point, routing table, core rules
       references/                  # On-demand knowledge files (13 files)

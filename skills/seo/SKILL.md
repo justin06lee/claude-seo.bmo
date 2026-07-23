@@ -6,7 +6,7 @@ argument-hint: "[command] [url]"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "2.4.0"
+  version: "2.5.0"
   category: seo
 ---
 
@@ -20,7 +20,7 @@ installs expose this command automatically. Repository users run
 launcher path. Never invoke bundled scripts with a bare Python interpreter.
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 24 sub-skills (21 core + 1 framework
+e-commerce, publishers, agencies). Orchestrates 25 sub-skills (22 core + 1 framework
 integration + 2 extension mirrors) and 18 sub-agents. A separate optional Firecrawl
 extension is also installable (see "Optional Extensions" below).
 
@@ -28,6 +28,7 @@ extension is also installable (see "Optional Extensions" below).
 
 | Command | What it does |
 |---------|-------------|
+| `/seo everything [path]` | Autonomous full-project SEO pass: perceive the codebase, fan out specialists, apply every relevant fix on a branch, show one diff |
 | `/seo audit <url>` | Full website audit with parallel subagent delegation |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo sitemap <url or generate>` | Analyze or generate XML sitemaps |
@@ -210,34 +211,35 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 24 sub-skills (21 core + 1 framework integration + 2 extension
-mirrors). The orchestrator itself (`seo`) is the 25th in `skills/`, but does not
+This skill orchestrates 25 sub-skills (22 core + 1 framework integration + 2 extension
+mirrors). The orchestrator itself (`seo`) is the 26th in `skills/`, but does not
 orchestrate itself, so it is not enumerated below.
 
-1. **seo-audit** -- Full website audit with parallel delegation
-2. **seo-page** -- Deep single-page analysis
-3. **seo-technical** -- Technical SEO (9 categories)
-4. **seo-content** -- E-E-A-T and content quality
-5. **seo-content-brief** -- Detailed SEO content brief generation (contributed by puneetindersingh)
-6. **seo-schema** -- Schema markup detection and generation
-7. **seo-images** -- Image optimization, SERP analysis, file optimization
-8. **seo-sitemap** -- Sitemap analysis and generation
-9. **seo-geo** -- AI Overviews / GEO optimization
-10. **seo-plan** -- Strategic planning with templates
-11. **seo-programmatic** -- Programmatic SEO analysis and planning
-12. **seo-competitor-pages** -- Competitor comparison page generation
-13. **seo-hreflang** -- Hreflang/i18n SEO audit, cultural profiles, content parity
-14. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
-15. **seo-maps** -- Maps intelligence (geo-grid, GBP audit, reviews, competitor radius)
-16. **seo-google** -- Google SEO APIs (GSC, PageSpeed, CrUX, Indexing API, GA4)
-17. **seo-backlinks** -- Backlink profile analysis (free: Moz, Bing, CC; premium: DataForSEO)
-18. **seo-cluster** -- SERP-based semantic clustering (contributed by Lutfiya Miller)
-19. **seo-sxo** -- Search Experience Optimization (contributed by Florian Schmitz)
-20. **seo-drift** -- SEO drift monitoring (contributed by Dan Colta)
-21. **seo-ecommerce** -- E-commerce SEO intelligence (contributed by Matej Marjanovic)
-22. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension mirror)
-23. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension mirror)
-24. **seo-flow** -- FLOW framework integration (Find -> Leverage -> Optimize -> Win, 41 AI prompts, CC BY 4.0)
+1. **seo-everything** -- Autonomous full-project SEO pass (perceive, fan out, apply on a branch)
+2. **seo-audit** -- Full website audit with parallel delegation
+3. **seo-page** -- Deep single-page analysis
+4. **seo-technical** -- Technical SEO (9 categories)
+5. **seo-content** -- E-E-A-T and content quality
+6. **seo-content-brief** -- Detailed SEO content brief generation (contributed by puneetindersingh)
+7. **seo-schema** -- Schema markup detection and generation
+8. **seo-images** -- Image optimization, SERP analysis, file optimization
+9. **seo-sitemap** -- Sitemap analysis and generation
+10. **seo-geo** -- AI Overviews / GEO optimization
+11. **seo-plan** -- Strategic planning with templates
+12. **seo-programmatic** -- Programmatic SEO analysis and planning
+13. **seo-competitor-pages** -- Competitor comparison page generation
+14. **seo-hreflang** -- Hreflang/i18n SEO audit, cultural profiles, content parity
+15. **seo-local** -- Local SEO (GBP, NAP, citations, reviews, local schema, multi-location)
+16. **seo-maps** -- Maps intelligence (geo-grid, GBP audit, reviews, competitor radius)
+17. **seo-google** -- Google SEO APIs (GSC, PageSpeed, CrUX, Indexing API, GA4)
+18. **seo-backlinks** -- Backlink profile analysis (free: Moz, Bing, CC; premium: DataForSEO)
+19. **seo-cluster** -- SERP-based semantic clustering (contributed by Lutfiya Miller)
+20. **seo-sxo** -- Search Experience Optimization (contributed by Florian Schmitz)
+21. **seo-drift** -- SEO drift monitoring (contributed by Dan Colta)
+22. **seo-ecommerce** -- E-commerce SEO intelligence (contributed by Matej Marjanovic)
+23. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension mirror)
+24. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension mirror)
+25. **seo-flow** -- FLOW framework integration (Find -> Leverage -> Optimize -> Win, 41 AI prompts, CC BY 4.0)
 
 ### Optional Extensions
 

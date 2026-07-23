@@ -4,7 +4,7 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 25 sub-skills (21 core +
+3-layer architecture (directive, orchestration, execution). 26 sub-skills (22 core +
 1 orchestrator + 1 framework integration + 2 extension mirrors), 18 sub-agents (15 core +
 1 framework integration + 2 extension mirrors), and an extensible reference
 system cover technical SEO, content quality,
@@ -23,7 +23,7 @@ claude-seo/
   .claude-plugin/
     plugin.json                    # Plugin manifest (v2.2.4)
     marketplace.json               # Marketplace catalog for distribution
-  skills/                            # 25 sub-skills (auto-discovered)
+  skills/                            # 26 sub-skills (auto-discovered)
     seo/                           # Main orchestrator skill + shared runtime
       SKILL.md                     # Entry point, routing table, core rules
       references/                  # On-demand knowledge files (13 files)
@@ -33,6 +33,9 @@ claude-seo/
       schema/                      # Schema.org JSON-LD templates
       pdf/ data/                   # Bundled reference + update data
       requirements.txt             # Python dependencies
+    seo-everything/                # Autonomous full-project SEO pass (perceive, fan out, apply)
+      SKILL.md
+      references/                # Stack adapters, relevance matrix, apply safety
     seo-audit/SKILL.md            # Full site audit with parallel agents
     seo-page/SKILL.md            # Deep single-page analysis
     seo-technical/SKILL.md       # Technical SEO (9 categories)
@@ -131,6 +134,7 @@ claude-seo/
     content_humanize.py          # AI-pattern remover (rewrites AI-typical phrasing)
     content_verify.py            # Claim extractor + citation-gap detector
     schema_generate.py           # JSON-LD generators for high-leverage v2 schema types
+    seo_inventory.py             # Deterministic codebase SEO scanner (framework, routes, surface, business type)
     schema_ecommerce_validate.py # Product schema validator (merchant-listing requirements)
     iptc_ai_label.py             # IPTC DigitalSourceType audit/injection for AI imagery
     parasite_risk.py             # Parasite-SEO risk scanner
@@ -163,6 +167,7 @@ claude-seo/
 
 | Command | Use Case |
 |---------|----------|
+| `/seo everything [path]` | Autonomous full-project SEO pass: perceive, fan out, apply on a branch |
 | `/seo audit <url>` | Full website audit with parallel subagents |
 | `/seo page <url>` | Single page analysis |
 | `/seo technical <url>` | Technical SEO across 9 categories |

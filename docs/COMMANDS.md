@@ -17,6 +17,30 @@ the same setup automatically. It never installs packages globally.
 Check runtime, dependency, and Chromium readiness without changing the system.
 Diagnostic output omits absolute paths and environment values.
 
+### `/seo everything [path]`
+
+Autonomous full-project SEO pass over a codebase. One command, no per-skill
+decisions: it perceives the project, decides which SEO disciplines apply, fans
+out specialists in parallel, and applies every relevant fix directly to the
+source on a `feat/seo-pass` branch, then shows one diff to review.
+
+**Example:**
+```
+/seo everything ./my-app
+/seo everything            # current directory
+```
+
+**What it does:**
+1. Scans the codebase (`seo_inventory.py`): framework, routes, existing SEO surface, business type
+2. Decides which disciplines apply (relevance matrix) — so you never pick skills
+3. Fans out read-only specialist subagents in parallel to propose concrete edits
+4. Merges/sequences the edits (one coherent change per file, dependency-ordered)
+5. Applies them on a branch, idempotently and idiomatically for the framework, without breaking the build
+6. Reports one diff with the relevance decision and a falsifiability check per change
+
+Applies only to a git-tracked codebase you control (the branch + diff is the
+review). For a live URL with no local source it produces the plan instead.
+
 ### `/seo audit <url>`
 
 Full website SEO audit with parallel analysis.

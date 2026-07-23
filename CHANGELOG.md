@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-07-22
+
+Feature release: scheduled/CI drift monitoring, a cross-site portfolio dashboard, and a
+renderer that hydrates scroll- and interaction-gated content. Full suite: 464 passing tests.
+
+### Added
+
+- **Scheduled / CI drift runner** (`drift_ci.py`). Watches a list of URLs non-interactively,
+  seeds baselines on first sight, compares afterward, and exits non-zero when a severity
+  threshold is breached, so cron or CI fails on SEO regression like a broken test. JUnit
+  output for CI display; `CLAUDE_SEO_DRIFT_DIR` gives reproducible baselines across runners.
+  New skill command `/seo drift ci` and a `references/ci-integration.md` workflow guide.
+- **Cross-site portfolio dashboard** (`portfolio_report.py`). Aggregates the `audit-data.json`
+  each audit writes under `{domain}-audit/` into one standalone HTML view: sites ranked
+  worst-first by health score, findings totaled by severity, issues that recur across sites
+  surfaced as fix-once candidates, and per-site score deltas against a previous snapshot.
+
+### Changed
+
+- **Renderer hydration.** `render_page.py` gains a settle strategy applied after navigation:
+  `scroll` (the new default) walks the page to fire IntersectionObserver and scroll-bound
+  hydration, `network` adds a bounded network-idle wait for race-prone widget mounts, and
+  opt-in `--reveal-hidden` expands `<details>` and `aria-expanded` tab/accordion controls
+  without following links or submitting forms. Closes the documented false negatives for
+  below-the-fold and interaction-gated content. Result adds `settle_strategy`,
+  `scroll_passes`, and `revealed_elements`; verified against real headless Chromium.
+
 ## [2.3.0] - 2026-07-21
 
 Fork release. This repository is a distribution of

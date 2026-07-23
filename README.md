@@ -8,7 +8,7 @@
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/github/v/release/justin06lee/claude-seo.bmo)](https://github.com/justin06lee/claude-seo.bmo/releases)
-[![Tests](https://img.shields.io/badge/tests-415%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-464%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
 > **This is a fork.** [`justin06lee/claude-seo.bmo`](https://github.com/justin06lee/claude-seo.bmo) is a distribution of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) by [Daniel Agrici](https://github.com/AgriciDaniel), MIT licensed, with all upstream authorship and contributor credit intact. It packages the project so the `seo` skill carries its own runtime, which makes it installable a folder at a time — see [Installation](#installation). Upstream remains the place to follow the project itself.

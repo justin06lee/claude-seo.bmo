@@ -105,6 +105,7 @@ claude-seo/
     indexing_notify.py           # Indexing API v3 (URL_UPDATED/URL_DELETED)
     ga4_report.py                # GA4 organic traffic reports
     google_report.py             # PDF/HTML report generator (WeasyPrint + matplotlib)
+    portfolio_report.py          # Cross-site portfolio dashboard (aggregates {domain}-audit/ artifacts)
     youtube_search.py            # YouTube Data API v3
     nlp_analyze.py               # Cloud Natural Language API
     keyword_planner.py           # Google Ads Keyword Planner

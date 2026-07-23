@@ -459,5 +459,6 @@ def test_render_page_result_dict_has_all_documented_fields() -> None:
         "extracted_text", "publication_date", "accessibility_tree",
         "headers", "redirect_chain", "console_errors", "render_engine",
         "render_diagnostics", "render_ms", "mode_used", "error",
+        "settle_strategy", "scroll_passes", "revealed_elements",
     }
     assert set(result.keys()) == expected_fields

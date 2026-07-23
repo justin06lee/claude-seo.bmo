@@ -123,7 +123,7 @@ claude-seo/
     dataforseo_normalize.py      # DataForSEO response normalization utility
     sync_flow.py                 # FLOW prompt library sync (GitHub API, CC BY 4.0 headers, --dry-run, --ref)
     url_safety.py                # Canonical URL/SSRF safety module (validate, DNS-pin, safe fetch)
-    render_page.py               # Shared headless renderer (SPA-aware, Playwright)
+    render_page.py               # Shared headless renderer (SPA-aware, scroll/network settle, Playwright)
     lcp_subparts.py              # LCP subparts breakdown via CrUX API
     preload_check.py             # Speculation Rules / bfcache / prerender / preload detector
     agent_ux_check.py            # Agent-friendly page auditor

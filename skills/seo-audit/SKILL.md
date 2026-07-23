@@ -57,6 +57,24 @@ Delay between requests: 1 second
 - `{domain}-audit/screenshots/`: Desktop + mobile captures (if Playwright available)
 - **PDF Report** (recommended): Generate a professional A4 PDF using `claude-seo run google_report.py --type full --data {domain}-audit/audit-data.json --domain <domain> --output-dir {domain}-audit/`. This produces a white-cover enterprise report with TOC, executive summary, charts (Lighthouse gauges, query bars, index donut), metric cards, threshold tables, prioritized recommendations with effort estimates, and implementation roadmap. Always offer PDF generation after completing an audit.
 
+## Portfolio View (multiple sites)
+
+When several sites have been audited, aggregate their `audit-data.json`
+envelopes into one cross-site dashboard:
+
+```bash
+claude-seo run portfolio_report.py --scan <parent-dir> --output portfolio.html
+```
+
+`--scan` finds every `*/audit-data.json` beneath a directory (matching the
+`{domain}-audit/` convention). The dashboard ranks sites worst-first by health
+score, totals findings by severity, and surfaces **issues that recur across
+sites** — a shared root cause worth fixing once. It writes a `portfolio.json`
+alongside the HTML; pass a prior one via `--previous portfolio.json` and each
+site shows its score delta since that snapshot. This is the agency and
+multi-property view: run it after auditing a batch of client sites, or on a
+schedule beside `/seo drift ci`.
+
 ## Structured Audit Data Envelope
 
 Write `{domain}-audit/audit-data.json` with this shape so `claude-seo run google_report.py --type full --data {domain}-audit/audit-data.json --domain <domain> --output-dir {domain}-audit/` can generate a report even when Google API data is unavailable:

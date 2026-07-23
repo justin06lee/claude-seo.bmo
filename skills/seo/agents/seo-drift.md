@@ -21,6 +21,9 @@ All page fetching goes through the project's existing scripts with SSRF protecti
 - `claude-seo run drift_compare.py <url>` -- compare current state to baseline
 - `claude-seo run drift_history.py <url>` -- show change history
 - `claude-seo run drift_report.py <file> --output report.html` -- generate HTML report
+- `claude-seo run drift_ci.py check --config urls.json` -- non-interactive multi-URL
+  runner for schedules and CI; exits non-zero on regression (see the seo-drift
+  skill's `references/ci-integration.md`)
 
 Never use curl, wget, or raw HTTP requests. All fetching is handled by
 `scripts/fetch_page.py` internally, which validates URLs against private/loopback

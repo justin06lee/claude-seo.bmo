@@ -181,7 +181,7 @@ claude
 | `/seo backlinks <url>` | Backlink profile analysis (Moz, Bing, Common Crawl) |
 | `/seo cluster <keyword>` | SERP-based semantic clustering |
 | `/seo sxo <url>` | Search Experience Optimization (page-type, user stories, personas) |
-| `/seo drift baseline \| compare \| history <url>` | SEO drift monitoring with SQLite snapshots |
+| `/seo drift baseline \| compare \| history \| ci <url>` | SEO drift monitoring with SQLite snapshots; `ci` gates schedules/CI on regression |
 | `/seo ecommerce <url>` | E-commerce SEO and marketplace intelligence |
 | `/seo flow [stage]` | FLOW framework prompts (CC BY 4.0, evidence-led) |
 | `/seo firecrawl [command] <url>` | Full-site crawling (extension) |

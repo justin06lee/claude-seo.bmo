@@ -52,6 +52,13 @@ jobs:
         # CI in sync with the runtime contract.
         run: pip install -r skills/seo/requirements.txt pytest
 
+      - name: Install Chromium for the renderer
+        # The hydration tests (test_render_hydration.py) drive a real headless
+        # browser; without the browser build they skip themselves, so the
+        # renderer's behavior would go unverified in CI. Install only Chromium,
+        # with its OS deps, to match what the renderer uses.
+        run: python -m playwright install --with-deps chromium
+
       - name: Run pytest
         run: pytest tests/ -v
 

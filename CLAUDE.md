@@ -19,7 +19,7 @@ A root `SKILL.md` (`name: valhalla`) is the one-command entry point. Because a
 root `SKILL.md` makes the whole repository install as **one** skill, two install
 shapes exist from the same tree:
 
-- **`bmo add justin06lee/claude-seo.bmo`** (bare) installs a single `valhalla`
+- **`bmo add justin06lee/valhalla.md`** (bare) installs a single `valhalla`
   skill: the whole repo, minus the `.bmoignore`d dev trees, lands under
   `~/.claude/skills/valhalla/`. The 26 discipline skills come along as nested
   *knowledge* Valhalla loads on demand — they are **not** registered as separate
@@ -273,11 +273,11 @@ Part of the Claude Code skill family:
 ## Repository Topology
 
 This repository is a **fork** of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo),
-distributed at `justin06lee/claude-seo.bmo`. It has one remote.
+distributed at `justin06lee/valhalla.md`. It has one remote.
 
 | Remote | URL | Role |
 |---|---|---|
-| `origin` | `https://github.com/justin06lee/claude-seo.bmo` | The only remote. Development and releases both live here. |
+| `origin` | `https://github.com/justin06lee/valhalla.md` | The only remote. Development and releases both live here. |
 
 Upstream is not configured as a remote. To pull upstream changes, add it
 explicitly and merge:

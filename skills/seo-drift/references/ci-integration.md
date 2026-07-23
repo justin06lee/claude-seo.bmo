@@ -64,7 +64,7 @@ jobs:
       - name: Install the seo skill
         run: |
           pip install requests beautifulsoup4 lxml
-          bmo add justin06lee/claude-seo.bmo/skills/seo   # or a manual checkout
+          bmo add justin06lee/valhalla.md/skills/seo   # or a manual checkout
 
       - name: Check for SEO drift
         run: |

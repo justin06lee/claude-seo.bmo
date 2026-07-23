@@ -4,17 +4,17 @@
 
 **Claude SEO is an open-source SEO analysis plugin for [Claude Code](https://claude.ai/claude-code).** It runs 26 sub-skills and 18 specialist agents in parallel across technical SEO, content quality (E-E-A-T), Schema.org markup, AI search optimization (GEO), local SEO, e-commerce, and international SEO. Every audit produces a prioritized action plan with testable recommendations grounded in primary-source guidance from Google.
 
-[![CI](https://github.com/justin06lee/claude-seo.bmo/actions/workflows/ci.yml/badge.svg)](https://github.com/justin06lee/claude-seo.bmo/actions/workflows/ci.yml)
+[![CI](https://github.com/justin06lee/valhalla.md/actions/workflows/ci.yml/badge.svg)](https://github.com/justin06lee/valhalla.md/actions/workflows/ci.yml)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/github/v/release/justin06lee/claude-seo.bmo)](https://github.com/justin06lee/claude-seo.bmo/releases)
+[![Version](https://img.shields.io/github/v/release/justin06lee/valhalla.md)](https://github.com/justin06lee/valhalla.md/releases)
 [![Tests](https://img.shields.io/badge/tests-480%20passing-brightgreen)](tests/)
 [![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 
 > **⚔️ Valhalla — one command, everything.** This fork adds a single front-door skill. Install it and use `/valhalla`:
 >
 > ```bash
-> bmo add justin06lee/claude-seo.bmo   # installs one skill: valhalla
+> bmo add justin06lee/valhalla.md   # installs one skill: valhalla
 > ```
 > ```
 > /valhalla audit this codebase and fix all the SEO
@@ -22,7 +22,7 @@
 >
 > No sub-commands, no per-skill decisions. Valhalla perceives your project, decides which of the 26 SEO disciplines apply, fans out specialists in parallel, and applies every relevant fix to the source on a `feat/seo-pass` branch — then hands you one diff to merge or revert. The full toolkit below is what it drives internally; you never have to touch it directly.
 
-> **This is a fork.** [`justin06lee/claude-seo.bmo`](https://github.com/justin06lee/claude-seo.bmo) is a distribution of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) by [Daniel Agrici](https://github.com/AgriciDaniel), MIT licensed, with all upstream authorship and contributor credit intact. It adds the `valhalla` one-command autopilot and packages the project so each skill carries its own runtime. Upstream remains the place to follow the project itself.
+> **This is a fork.** [`justin06lee/valhalla.md`](https://github.com/justin06lee/valhalla.md) is a distribution of [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) by [Daniel Agrici](https://github.com/AgriciDaniel), MIT licensed, with all upstream authorship and contributor credit intact. It adds the `valhalla` one-command autopilot and packages the project so each skill carries its own runtime. Upstream remains the place to follow the project itself.
 
 ### Why Claude SEO
 
@@ -85,7 +85,7 @@ Run a full audit and watch parallel agents fan out across the site:
 Code. The bare repo installs a single skill, `valhalla`:
 
 ```bash
-bmo add justin06lee/claude-seo.bmo
+bmo add justin06lee/valhalla.md
 ```
 
 Then just use it:
@@ -106,7 +106,7 @@ If you want the granular `/seo audit`, `/seo schema`, `/seo drift`, … commands
 instead of (or alongside) the Valhalla front door, install the skills directory:
 
 ```bash
-bmo add justin06lee/claude-seo.bmo/skills --all   # all 26 skills + 18 subagents
+bmo add justin06lee/valhalla.md/skills --all   # all 26 skills + 18 subagents
 /seo setup
 ```
 
@@ -117,7 +117,7 @@ The `seo` skill carries its own Python runtime; the others route through it.
 One-time marketplace add, then plugin install:
 
 ```bash
-/plugin marketplace add justin06lee/claude-seo.bmo
+/plugin marketplace add justin06lee/valhalla.md
 /plugin install valhalla@justin06lee-valhalla
 /seo setup
 ```
@@ -129,15 +129,15 @@ with `/seo doctor`. No global Python packages or PATH shims are created.
 ### Manual Install (Unix / macOS / Linux)
 
 ```bash
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
-bash claude-seo.bmo/install.sh
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
+bash valhalla.md/install.sh
 ```
 
 <details>
 <summary>One-liner (curl, review then run)</summary>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/install.sh > install.sh
+curl -fsSL https://raw.githubusercontent.com/justin06lee/valhalla.md/main/install.sh > install.sh
 cat install.sh        # review before running
 bash install.sh
 rm install.sh
@@ -148,11 +148,11 @@ rm install.sh
 ### Windows (PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
-powershell -ExecutionPolicy Bypass -File claude-seo.bmo\install.ps1
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
+powershell -ExecutionPolicy Bypass -File valhalla.md\install.ps1
 ```
 
-> **Why `git clone` instead of `irm | iex`?** Claude Code's own security guardrails flag `irm ... | iex` as a supply chain risk: downloading and executing remote code without verification. The `git clone` approach lets you inspect `claude-seo.bmo\install.ps1` before running it.
+> **Why `git clone` instead of `irm | iex`?** Claude Code's own security guardrails flag `irm ... | iex` as a supply chain risk: downloading and executing remote code without verification. The `git clone` approach lets you inspect `valhalla.md\install.ps1` before running it.
 
 ## Quick Start
 
@@ -394,7 +394,7 @@ Two real boundaries worth being upfront about.
 ## Uninstall
 
 ```bash
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
 bash claude-seo/uninstall.sh
 ```
 
@@ -402,7 +402,7 @@ bash claude-seo/uninstall.sh
 <summary>One-liner (curl)</summary>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/justin06lee/valhalla.md/main/uninstall.sh | bash
 ```
 
 </details>
@@ -463,7 +463,7 @@ Claude SEO is part of a family of Claude Code skills that interoperate cleanly:
 
 | Skill | What it does | How it connects |
 |-------|-------------|-----------------|
-| [Claude SEO](https://github.com/justin06lee/claude-seo.bmo) | SEO analysis, audits, schema, GEO | Core. Analyzes sites and generates action plans. |
+| [Claude SEO](https://github.com/justin06lee/valhalla.md) | SEO analysis, audits, schema, GEO | Core. Analyzes sites and generates action plans. |
 | [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion. Writes content optimized by SEO findings. |
 | [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared. Generates images for SEO assets and blog posts. |
 | [Codex SEO](https://github.com/AgriciDaniel/codex-seo) | Codex-first SEO skill suite | Port. Same SEO system adapted for Codex skills, TOML agents, deterministic runners. |

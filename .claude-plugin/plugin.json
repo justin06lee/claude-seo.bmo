@@ -1,6 +1,6 @@
 {
   "name": "valhalla",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Valhalla: one-command autonomous SEO for a codebase. /valhalla perceives the project, decides which SEO disciplines apply, fans out specialists in parallel, and applies every relevant fix on a branch. 26 sub-skills (22 core + 1 orchestrator + 1 framework + 2 extension mirrors) and 18 sub-agents cover technical SEO, content, schema, sitemaps, Core Web Vitals, local, backlinks, AI/GEO, ecommerce, hreflang, SXO, drift, and Google APIs.",
   "author": {
     "name": "AgriciDaniel",
@@ -28,7 +28,7 @@
     "./skills/seo/agents/seo-visual.md"
   ],
   "homepage": "https://claude-seo.md",
-  "repository": "https://github.com/justin06lee/claude-seo.bmo",
+  "repository": "https://github.com/justin06lee/valhalla.md",
   "keywords": [
     "seo",
     "technical-seo",

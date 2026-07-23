@@ -14,7 +14,7 @@ argument-hint: "[path or task] (defaults to the current project)"
 license: MIT
 metadata:
   author: AgriciDaniel
-  version: "3.0.0"
+  version: "3.1.0"
   category: seo
 ---
 
@@ -48,6 +48,29 @@ user never has to know it is there.
 
 ## How to run it
 
+### 0. Ensure the runtime yourself (automatic — never ask)
+
+Before anything else, make sure the runtime is ready. Do not ask the user to run
+setup; Valhalla is brainless-by-design, so Claude handles it:
+
+```
+claude-seo doctor --json
+```
+
+If `ready` is `false`, run setup yourself and report progress as you go, then
+continue:
+
+```
+claude-seo setup
+```
+
+Setup is idempotent, so running it when already set up is harmless. If setup
+cannot complete (no network, no Python), do not stop — the codebase-apply flow
+still works: the perceive scanner is stdlib-only (runs without setup), and the
+core of the pass is Claude reading and editing your source. Note in the final
+report which heavier scripts were unavailable, and carry on with everything that
+does not need them. The user should never have to type a setup command.
+
 ### 1. Read the detailed playbook
 
 This front door stays short on purpose. The full six-phase pipeline —
@@ -66,7 +89,7 @@ are the operating manual:
 ### 2. Perceive the project deterministically
 
 Do not guess the stack. Run the scanner (it is stdlib-only, so it runs even
-before `/valhalla setup`):
+before setup completes):
 
 ```
 claude-seo run seo_inventory.py <path>
@@ -116,10 +139,12 @@ fact only the owner can supply), and the branch to review.
 
 ## Setup and diagnostics
 
-`/valhalla setup` creates the isolated Python runtime and Chromium (needed for
-the heavier scripts; the codebase-apply flow itself leans on the stdlib scanner
-plus reading and editing source). `/valhalla doctor` reports runtime readiness.
-Both run through `claude-seo`.
+Setup is automatic (see step 0): Claude checks readiness and runs `claude-seo
+setup` itself when needed, so the user never types a setup command. The runtime
+(isolated Python + Chromium) powers the heavier scripts; the codebase-apply flow
+itself leans on the stdlib scanner plus reading and editing source, so a run can
+proceed even if setup is unavailable. `claude-seo doctor` reports readiness if
+you need to diagnose.
 
 ## For the curious (not required to use Valhalla)
 

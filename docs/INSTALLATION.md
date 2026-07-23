@@ -16,7 +16,7 @@ Optional:
 The recommended path. Inside Claude Code:
 
 ```
-/plugin marketplace add justin06lee/claude-seo.bmo
+/plugin marketplace add justin06lee/valhalla.md
 /plugin install claude-seo@justin06lee-claude-seo
 /seo setup
 ```
@@ -28,14 +28,14 @@ to Claude's persistent plugin data. Use `/seo doctor` for a read-only check.
 ### Manual Install (Unix, macOS, Linux)
 
 ```bash
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
 bash claude-seo/install.sh
 ```
 
 Review-then-run alternative:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/install.sh > install.sh
+curl -fsSL https://raw.githubusercontent.com/justin06lee/valhalla.md/main/install.sh > install.sh
 cat install.sh        # review
 bash install.sh       # run when satisfied
 rm install.sh
@@ -44,7 +44,7 @@ rm install.sh
 ### Manual Install (Windows, PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
 powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 ```
 
@@ -55,7 +55,7 @@ The Windows path uses `git clone` rather than `irm | iex` because Claude Code's 
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/justin06lee/claude-seo.bmo.git
+git clone https://github.com/justin06lee/valhalla.md.git
 cd claude-seo
 ```
 
@@ -112,13 +112,13 @@ If installed as a plugin:
 
 ```
 /plugin uninstall claude-seo@justin06lee-claude-seo
-/plugin marketplace remove justin06lee/claude-seo.bmo
+/plugin marketplace remove justin06lee/valhalla.md
 ```
 
 If installed manually, run the uninstaller from a fresh clone:
 
 ```bash
-git clone --depth 1 https://github.com/justin06lee/claude-seo.bmo.git
+git clone --depth 1 https://github.com/justin06lee/valhalla.md.git
 bash claude-seo/uninstall.sh
 ```
 
@@ -132,10 +132,10 @@ Caution: Prefer downloading, inspecting, then running remote scripts; the pipe-t
 
 ```bash
 # Uninstall current version
-curl -fsSL https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/justin06lee/valhalla.md/main/uninstall.sh | bash
 
 # Install new version
-curl -fsSL https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/justin06lee/valhalla.md/main/install.sh | bash
 ```
 
 ## Troubleshooting

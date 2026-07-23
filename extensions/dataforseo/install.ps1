@@ -13,7 +13,7 @@ Write-Host ""
 $SeoSkillDir = "$env:USERPROFILE\.claude\skills\seo"
 if (-not (Test-Path $SeoSkillDir)) {
     Write-Host "✗ Claude SEO is not installed." -ForegroundColor Red
-    Write-Host "  Install it first: irm https://raw.githubusercontent.com/justin06lee/claude-seo.bmo/main/install.ps1 | iex"
+    Write-Host "  Install it first: irm https://raw.githubusercontent.com/justin06lee/valhalla.md/main/install.ps1 | iex"
     exit 1
 }
 Write-Host "✓ Claude SEO detected" -ForegroundColor Green

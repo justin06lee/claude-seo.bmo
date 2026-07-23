@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability, please report it responsibly. Do **not** open a public issue.
 
-1. Open a private [GitHub Security Advisory](https://github.com/justin06lee/claude-seo.bmo/security/advisories/new) on this repository (preferred channel).
+1. Open a private [GitHub Security Advisory](https://github.com/justin06lee/valhalla.md/security/advisories/new) on this repository (preferred channel).
 2. As a fallback, email the maintainer at the address listed in [`CITATION.cff`](CITATION.cff).
 3. Encrypt sensitive disclosures if you can. Request the maintainer's PGP key in the advisory or email — the key fingerprint is published in advisory threads on first request and is rotated yearly.
 

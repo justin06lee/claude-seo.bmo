@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-07-22
+
+### Added
+
+- **Automatic setup.** Valhalla now checks runtime readiness and runs `claude-seo setup`
+  itself when needed, so the user never types a setup command. A run proceeds even if setup
+  cannot complete, because the perceive scanner is stdlib-only and the core of the pass is
+  Claude reading and editing source; unavailable heavier scripts are noted in the report.
+
+### Changed
+
+- **Repository renamed to `valhalla.md`.** The canonical source is now
+  `justin06lee/valhalla.md`; the bmo install is `bmo add justin06lee/valhalla.md`. All
+  repository URLs (badges, installers, docs, manifests) were updated; upstream attribution to
+  `AgriciDaniel/claude-seo` is unchanged. GitHub redirects the old path, so existing installs
+  keep working.
+
 ## [3.0.0] - 2026-07-22
 
 Valhalla release. Adds a single-command front door and renames the plugin identity.

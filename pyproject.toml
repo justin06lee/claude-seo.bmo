@@ -1,6 +1,6 @@
 [project]
 name = "claude-seo"
-version = "3.0.0"
+version = "3.1.0"
 description = "Comprehensive SEO analysis skill for Claude Code"
 requires-python = ">=3.10"
 license = "MIT"
@@ -11,8 +11,8 @@ authors = [
 keywords = ["seo", "claude-code", "ai-tools", "schema-markup", "e-e-a-t", "geo"]
 
 [project.urls]
-Homepage = "https://github.com/justin06lee/claude-seo.bmo"
-Repository = "https://github.com/justin06lee/claude-seo.bmo"
+Homepage = "https://github.com/justin06lee/valhalla.md"
+Repository = "https://github.com/justin06lee/valhalla.md"
 
 [tool.ruff]
 target-version = "py310"

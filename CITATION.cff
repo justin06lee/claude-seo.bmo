@@ -8,10 +8,10 @@ authors:
     given-names: Daniel
     family-names: Agrici
     website: 'https://agricidaniel.com'
-repository-code: 'https://github.com/justin06lee/claude-seo.bmo'
-url: 'https://github.com/justin06lee/claude-seo.bmo'
+repository-code: 'https://github.com/justin06lee/valhalla.md'
+url: 'https://github.com/justin06lee/valhalla.md'
 license: MIT
-version: 3.0.0
+version: 3.1.0
 date-released: '2026-07-20'
 keywords:
   - seo

@@ -10,7 +10,7 @@
 #
 # Plugin-install users should use Claude Code's own command instead:
 #   /plugin uninstall claude-seo@justin06lee-claude-seo
-#   /plugin marketplace remove justin06lee/claude-seo.bmo
+#   /plugin marketplace remove justin06lee/valhalla.md
 
 $ErrorActionPreference = "Stop"
 

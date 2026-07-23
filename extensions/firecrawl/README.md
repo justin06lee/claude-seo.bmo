@@ -4,7 +4,7 @@ Full-site crawling, scraping, and site mapping powered by [Firecrawl](https://ww
 
 ## Prerequisites
 
-- [Claude SEO](https://github.com/justin06lee/claude-seo.bmo) installed
+- [Claude SEO](https://github.com/justin06lee/valhalla.md) installed
 - Node.js 20+
 - Firecrawl API key ([sign up](https://www.firecrawl.dev/signup) -- free tier: 500 credits/month)
 
@@ -79,4 +79,4 @@ When installed, other Claude SEO skills automatically leverage Firecrawl:
 
 - [Firecrawl Documentation](https://docs.firecrawl.dev/)
 - [Firecrawl MCP Server](https://www.npmjs.com/package/firecrawl-mcp)
-- [Claude SEO](https://github.com/justin06lee/claude-seo.bmo)
+- [Claude SEO](https://github.com/justin06lee/valhalla.md)
